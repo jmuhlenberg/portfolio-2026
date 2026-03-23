@@ -3,16 +3,17 @@ interface Props {
   activePage?: 'home' | 'thinking' | 'work' | 'writing' | 'about';
 }
 const { activePage } = Astro.props;
+const base = import.meta.env.BASE_URL;
 const links = [
-  { href: '/thinking', label: 'How I think', key: 'thinking' },
-  { href: '/work',     label: 'Work',         key: 'work'     },
-  { href: '/writing',  label: 'Writing',      key: 'writing'  },
-  { href: '/about',    label: 'About',        key: 'about'    },
+  { href: `${base}thinking`, label: 'How I think', key: 'thinking' },
+  { href: `${base}work`,     label: 'Work',         key: 'work'     },
+  { href: `${base}writing`,  label: 'Writing',      key: 'writing'  },
+  { href: `${base}about`,    label: 'About',        key: 'about'    },
 ];
 ---
 
 <nav class="nav">
-  <a href="/" class="nav__logo">JWM</a>
+  <a href={base} class="nav__logo">JWM</a>
   <ul class="nav__links">
     {links.map(link => (
       <li>
