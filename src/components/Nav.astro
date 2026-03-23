@@ -1,0 +1,75 @@
+---
+interface Props {
+  activePage?: 'home' | 'thinking' | 'work' | 'writing' | 'about';
+}
+const { activePage } = Astro.props;
+const links = [
+  { href: '/thinking', label: 'How I think', key: 'thinking' },
+  { href: '/work',     label: 'Work',         key: 'work'     },
+  { href: '/writing',  label: 'Writing',      key: 'writing'  },
+  { href: '/about',    label: 'About',        key: 'about'    },
+];
+---
+
+<nav class="nav">
+  <a href="/" class="nav__logo">JWM</a>
+  <ul class="nav__links">
+    {links.map(link => (
+      <li>
+        <a
+          href={link.href}
+          class:list={['nav__link', { 'nav__link--active': activePage === link.key }]}
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+  <a href="mailto:jmuhlenberg16@yahoo.com" class="nav__cta">Say hello</a>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    background: rgba(13,13,13,0.75);
+  }
+  .nav__logo {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    transition: opacity 0.2s;
+  }
+  .nav__logo:hover { opacity: 0.75; }
+  .nav__links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav__link {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+  }
+  .nav__link:hover    { color: var(--text-primary); }
+  .nav__link--active  { color: var(--accent); }
+  .nav__cta {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0.55rem 1.25rem;
+    border-radius: 2px;
+    transition: opacity 0.2s;
+  }
+  .nav__cta:hover { opacity: 0.85; }
+</style>

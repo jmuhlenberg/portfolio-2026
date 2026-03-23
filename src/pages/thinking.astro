@@ -1,0 +1,413 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="How I Think — JWM" activePage="thinking">
+
+  <header class="page-header grid-overlay">
+    <p class="eyebrow">Frameworks &amp; mental models</p>
+    <h1 class="page-title">How I <em>think</em></h1>
+    <p class="page-desc">These aren't slides I show prospects. They're the actual models running in the background when I'm running discovery, building a POC, or helping a stakeholder make a decision.</p>
+  </header>
+
+  <div class="frameworks">
+
+    <!-- 01 DISCOVERY -->
+    <div class="fw-block">
+      <div class="fw-meta">
+        <p class="fw-num">01</p>
+        <h2 class="fw-name">The <em>surface &amp; depth</em> discovery model</h2>
+        <span class="fw-tag">Discovery</span>
+        <p class="fw-summary">Most discovery stalls at the surface. I run two tracks simultaneously — the stated problem and the structural one underneath it.</p>
+      </div>
+      <div class="fw-body">
+        <p class="prose">The first 10 minutes of any discovery call are almost always the same: pain stated as a feature request. "We need better reporting." "Our checkout flow is broken." I've learned that the real question isn't what they're asking for — it's why now, and what breaks if nothing changes. That second question is where the deal actually lives.</p>
+        <div class="step-flow">
+          <div class="step-item">
+            <span class="step-num">01</span>
+            <div class="step-content">
+              <p class="step-title">Capture the stated problem</p>
+              <p class="step-detail">Let them fully articulate the surface issue without interruption. Resist the urge to jump to solution mode.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">02</span>
+            <div class="step-content">
+              <p class="step-title">Map the downstream impact</p>
+              <p class="step-detail">Ask: what breaks, slows down, or costs money if this problem goes unsolved for another 6 months? This surfaces the structural issue.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">03</span>
+            <div class="step-content">
+              <p class="step-title">Identify the internal champion</p>
+              <p class="step-detail">Who loses sleep over this problem? That person is my real audience — not always the economic buyer.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">04</span>
+            <div class="step-content">
+              <p class="step-title">Anchor to a measurable outcome</p>
+              <p class="step-detail">Before ending the call, I get agreement on what "solved" looks like in numbers. No metric = no deal.</p>
+            </div>
+          </div>
+        </div>
+        <div class="quote-block">
+          <p class="quote-text">"The surface problem gets you a meeting. The structural problem gets you a deal."</p>
+          <p class="quote-attr">A rule I work by</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 POC -->
+    <div class="fw-block">
+      <div class="fw-meta">
+        <p class="fw-num">02</p>
+        <h2 class="fw-name">The <em>four-gate</em> POC framework</h2>
+        <span class="fw-tag">Technical evaluation</span>
+        <p class="fw-summary">A POC that doesn't have clear success criteria is just a demo with extra steps. I gate every evaluation against four checkpoints.</p>
+      </div>
+      <div class="fw-body">
+        <p class="prose">A POC is the most expensive thing in a sales cycle — it consumes engineering time, AE time, and prospect goodwill. I treat it like a product sprint: scoped, timeboxed, and evaluated against agreed-upon criteria. If a gate fails, we diagnose before moving forward — not after.</p>
+        <div class="poc-stages">
+          <div class="poc-stage">
+            <p class="poc-stage-num">G1</p>
+            <p class="poc-stage-title">Scope lock</p>
+            <p class="poc-stage-detail">Written agreement on what we're proving, what we're not, and how we'll know it worked.</p>
+          </div>
+          <div class="poc-stage">
+            <p class="poc-stage-num">G2</p>
+            <p class="poc-stage-title">Technical fit</p>
+            <p class="poc-stage-detail">API, webhook, and integration architecture validated. Blockers surfaced early, not at close.</p>
+          </div>
+          <div class="poc-stage">
+            <p class="poc-stage-num">G3</p>
+            <p class="poc-stage-title">Business case</p>
+            <p class="poc-stage-detail">POC results translated into ROI language. Revenue impact, time saved, risk reduced.</p>
+          </div>
+          <div class="poc-stage">
+            <p class="poc-stage-num">G4</p>
+            <p class="poc-stage-title">Stakeholder sign-off</p>
+            <p class="poc-stage-detail">Executive sponsor confirms the outcome maps to their strategic priority before we move to procurement.</p>
+          </div>
+        </div>
+        <p class="prose">Tools I lean on at each gate: Postman for API validation, JSON/webhook tracing for integration debugging, and AI-assisted workflow prototyping to accelerate demo builds when time is short.</p>
+      </div>
+    </div>
+
+    <!-- 03 TRANSLATION -->
+    <div class="fw-block">
+      <div class="fw-meta">
+        <p class="fw-num">03</p>
+        <h2 class="fw-name">The <em>translation layer</em> model</h2>
+        <span class="fw-tag">Complexity translation</span>
+        <p class="fw-summary">Technical depth is worthless if the buyer can't act on it. I run a mental translation between what the architecture means and what it costs or enables.</p>
+      </div>
+      <div class="fw-body">
+        <p class="prose">The biggest failure mode for SEs is pitching to the wrong altitude. Engineering stakeholders want API specs and integration docs. C-suite stakeholders want risk reduction and revenue upside. I maintain two running narratives in every deal and switch between them depending on who's in the room.</p>
+        <div class="translation-model">
+          <div class="tm-col">
+            <p class="tm-col-label">Technical reality</p>
+            <div class="tm-item"><strong>Webhook-based event triggers</strong>Real-time subscription lifecycle events fired on state change</div>
+            <div class="tm-item"><strong>SDK abstraction layer</strong>Pre-built methods reducing custom integration code by ~60%</div>
+            <div class="tm-item"><strong>Idempotent API design</strong>Duplicate event handling without double-processing risk</div>
+          </div>
+          <div class="tm-bridge">
+            <span class="tm-arrow">→</span>
+            <p class="tm-bridge-label">Translation layer</p>
+            <span class="tm-arrow">→</span>
+          </div>
+          <div class="tm-col">
+            <p class="tm-col-label">Business outcome</p>
+            <div class="tm-item"><strong>Faster retention response</strong>Churn triggers actioned in real time, not next-day batch</div>
+            <div class="tm-item"><strong>Lower implementation cost</strong>Weeks of engineering time reclaimed for product priorities</div>
+            <div class="tm-item"><strong>Reduced revenue leakage</strong>Failed payments handled reliably without manual intervention</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 STAKEHOLDER -->
+    <div class="fw-block">
+      <div class="fw-meta">
+        <p class="fw-num">04</p>
+        <h2 class="fw-name">The <em>multi-thread</em> stakeholder map</h2>
+        <span class="fw-tag">Deal strategy</span>
+        <p class="fw-summary">Single-threaded deals die. I map every evaluation to at least three stakeholder types and make sure each one has a reason to say yes.</p>
+      </div>
+      <div class="fw-body">
+        <p class="prose">Enterprise deals rarely fail on technical merit — they stall on organizational dynamics. Someone important wasn't included, two teams have competing priorities, or the economic buyer only hears the cost story. I map stakeholders in a 2x2 of influence vs. urgency, then make sure I have a compelling narrative for every quadrant.</p>
+        <div class="matrix-grid">
+          <div class="matrix-cell">
+            <p class="matrix-cell-label">High influence · Low urgency</p>
+            <p class="matrix-cell-title">Strategic sponsor</p>
+            <p class="matrix-cell-desc">Needs to see long-term fit and executive alignment. Not day-to-day, but can unblock anything.</p>
+          </div>
+          <div class="matrix-cell accent-cell">
+            <p class="matrix-cell-label">High influence · High urgency</p>
+            <p class="matrix-cell-title">Economic buyer</p>
+            <p class="matrix-cell-desc">Owns the budget and feels the pain acutely. Primary target for ROI narrative and risk story.</p>
+          </div>
+          <div class="matrix-cell">
+            <p class="matrix-cell-label">Low influence · Low urgency</p>
+            <p class="matrix-cell-title">Technical evaluator</p>
+            <p class="matrix-cell-desc">Validates feasibility. Needs proof points, not pitches. Win them with documentation and POC quality.</p>
+          </div>
+          <div class="matrix-cell">
+            <p class="matrix-cell-label">Low influence · High urgency</p>
+            <p class="matrix-cell-title">Internal champion</p>
+            <p class="matrix-cell-desc">Closest to the problem. Often drives the deal internally. Equip them to sell up the org.</p>
+          </div>
+        </div>
+        <p class="prose">The goal is never to convince one person. It's to make sure everyone in the room has already convinced themselves before the final call.</p>
+      </div>
+    </div>
+
+    <!-- 05 ARCHITECTURE -->
+    <div class="fw-block">
+      <div class="fw-meta">
+        <p class="fw-num">05</p>
+        <h2 class="fw-name">The <em>scalable architecture</em> first principle</h2>
+        <span class="fw-tag">Technical strategy</span>
+        <p class="fw-summary">I don't design integrations to close deals. I design them to survive the first year of production traffic and a 3x headcount change.</p>
+      </div>
+      <div class="fw-body">
+        <p class="prose">The fastest way to lose a customer post-close is to architect something that breaks at scale. I evaluate every integration decision against two timeframes: what gets this live, and what keeps this healthy. They're often different answers — and acknowledging that tension builds more trust with engineering teams than pretending it doesn't exist.</p>
+        <div class="step-flow">
+          <div class="step-item">
+            <span class="step-num">P1</span>
+            <div class="step-content">
+              <p class="step-title">Start with failure modes, not features</p>
+              <p class="step-detail">Before scoping the happy path, I map out what happens when things break — API timeouts, webhook retries, partial state.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">P2</span>
+            <div class="step-content">
+              <p class="step-title">Design for the team that isn't here yet</p>
+              <p class="step-detail">The engineer who maintains this integration in 18 months has no context. I build architectures that are self-explanatory under pressure.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">P3</span>
+            <div class="step-content">
+              <p class="step-title">Separate time-to-live from time-to-thrive</p>
+              <p class="step-detail">I'm explicit about what's a quick-start implementation vs. a production-grade architecture — and I make sure both get documented.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: 10rem 3rem 5rem;
+    border-bottom: 1px solid var(--border);
+    z-index: 1;
+  }
+  .page-title {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .page-desc {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    max-width: 520px;
+  }
+
+  .frameworks { position: relative; z-index: 1; padding: 0 3rem 6rem; }
+
+  .fw-block {
+    border-bottom: 1px solid var(--border);
+    padding: 4rem 0;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .fw-block:last-child { border-bottom: none; }
+
+  .fw-meta { position: sticky; top: 7rem; }
+  .fw-num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .fw-name {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+  .fw-name em { font-style: italic; color: var(--accent); }
+  .fw-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent-border);
+    padding: 0.3rem 0.65rem;
+    margin-bottom: 1.25rem;
+  }
+  .fw-summary { font-size: 0.85rem; line-height: 1.7; color: var(--text-secondary); }
+
+  .fw-body { display: flex; flex-direction: column; gap: 2rem; }
+
+  /* Step flow */
+  .step-flow { display: flex; flex-direction: column; border: 1px solid var(--border); }
+  .step-item {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .step-item:last-child { border-bottom: none; }
+  .step-item:hover { background: var(--surface-2); }
+  .step-num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    padding: 1.4rem 0 1.25rem 1.25rem;
+    border-right: 1px solid var(--border);
+  }
+  .step-content { padding: 1.25rem 1.5rem; }
+  .step-title { font-size: 0.85rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.3rem; }
+  .step-detail { font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary); }
+
+  /* Quote block */
+  .quote-block {
+    border-left: 2px solid var(--accent);
+    padding: 1rem 1.5rem;
+    background: rgba(200,240,84,0.03);
+  }
+  .quote-text {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+  .quote-attr {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* POC stages */
+  .poc-stages { display: flex; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .poc-stage {
+    flex: 1;
+    padding: 1.25rem 1rem;
+    background: var(--surface);
+    transition: background 0.2s;
+  }
+  .poc-stage:hover { background: var(--surface-2); }
+  .poc-stage-num {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .poc-stage-title { font-size: 0.8rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.4rem; }
+  .poc-stage-detail { font-size: 0.72rem; line-height: 1.55; color: var(--text-secondary); }
+
+  /* Translation model */
+  .translation-model {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .tm-col { background: var(--surface); padding: 1.5rem; }
+  .tm-bridge {
+    background: rgba(200,240,84,0.06);
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    padding: 1.5rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-width: 110px;
+  }
+  .tm-bridge-label {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-align: center;
+  }
+  .tm-arrow { font-size: 1.2rem; color: var(--accent); }
+  .tm-col-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .tm-item {
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .tm-item:last-child { border-bottom: none; }
+  .tm-item strong { color: var(--text-primary); font-weight: 500; display: block; font-size: 0.8rem; }
+
+  /* Stakeholder matrix */
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .matrix-cell {
+    background: var(--surface);
+    padding: 1.5rem;
+    transition: background 0.2s;
+  }
+  .matrix-cell:hover { background: var(--surface-2); }
+  .matrix-cell.accent-cell { background: rgba(200,240,84,0.04); }
+  .matrix-cell-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+  .matrix-cell-title {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+  }
+  .accent-cell .matrix-cell-title { color: var(--accent); }
+  .matrix-cell-desc { font-size: 0.78rem; line-height: 1.55; color: var(--text-secondary); }
+</style>

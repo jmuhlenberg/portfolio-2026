@@ -1,0 +1,274 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="PRN Vision — JWM" activePage="work">
+
+  <div class="case-block">
+    <div class="case-header">
+      <div>
+        <p class="case-eyebrow">03 — Enterprise · Multi-storefront unification · Co-sell with Shopify</p>
+        <h1 class="case-title">PRN <em>Vision</em></h1>
+        <p class="case-summary">An enterprise deal involving two distinct healthcare brands — eye care and vet care — each running separate storefronts, each with their own technical teams, and all of it needing to migrate from a legacy Cybersource payment gateway that Shopify couldn't directly import.</p>
+      </div>
+      <div class="case-meta">
+        <div class="meta-item">
+          <p class="meta-label">Segment</p>
+          <p class="meta-value"><strong>Enterprise</strong></p>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <p class="meta-label">Brands</p>
+          <p class="meta-value">PRN (eye care) · VRS (vet care)</p>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <p class="meta-label">Payment migration</p>
+          <p class="meta-value">Cybersource → Braintree → Shopify Payments</p>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <p class="meta-label">Co-sell</p>
+          <p class="meta-value"><strong>Shopify</strong> Professional Services</p>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <p class="meta-label">My scope</p>
+          <p class="meta-value">Pre-sales · Solution architecture · Technical design · Biz strategy</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-body">
+      <nav class="case-nav">
+        <span class="case-nav-item active">The brief</span>
+        <span class="case-nav-item">The brands</span>
+        <span class="case-nav-item">Payment challenge</span>
+        <span class="case-nav-item">My approach</span>
+        <span class="case-nav-item">Feature strategy</span>
+        <span class="case-nav-item">Key insight</span>
+        <span class="case-nav-item">Learnings</span>
+      </nav>
+
+      <div class="case-content">
+
+        <div class="content-section">
+          <p class="content-label">The brief</p>
+          <div class="badge-row">
+            <span class="badge">Co-sell with Shopify</span>
+            <span class="badge">Multi-brand</span>
+            <span class="badge">Healthcare</span>
+          </div>
+          <p class="prose">PRN Vision is a healthcare company operating two distinct subscription businesses under one roof — <strong>PRN</strong> (eye care supplements) and <strong>VRS</strong> (veterinary care products). Both brands had separate storefronts, separate technical implementation partners, and separate internal stakeholders, but shared the same core migration challenge: getting off a legacy <strong>Cybersource payment gateway</strong> that Shopify simply couldn't import from directly.</p>
+          <p class="prose">This was a co-sell with <strong>Shopify Professional Services</strong>, meaning I was coordinating across two merchant brands and two company workstreams simultaneously. The deal involved a tight target go-live around early December 2025 and a cast of stakeholders including internal merchant leads, two development agencies (Alice and Codal), and both Shopify and Recharge solution teams.</p>
+          <p class="prose">My role spanned the full pre-sales cycle: technical discovery, subscription strategy, feature recommendations, migration sequencing, and cross-team coordination. I was the primary Recharge voice across every merchant-facing conversation.</p>
+        </div>
+
+        <div class="content-section">
+          <p class="content-label">The two brands</p>
+          <div class="storefront-grid">
+            <div class="storefront-card">
+              <p class="storefront-eyebrow">Brand 01 — Eye care</p>
+              <p class="storefront-title">PRN</p>
+              <p class="storefront-desc">Supplement-based eye care subscriptions. Running a custom subscription widget with middleware for sales tax. Implementation partners: Alice (frontend/Liquid) and Codal (backend/integrations). Primary focus: migrating to Recharge's out-of-the-box widget, Unity Portal, Concierge SMS, and bundle strategy.</p>
+            </div>
+            <div class="storefront-card">
+              <p class="storefront-eyebrow">Brand 02 — Vet care</p>
+              <p class="storefront-title">VRS</p>
+              <p class="storefront-desc">Veterinary supplement subscriptions on the same Cybersource → Braintree migration path as PRN, but with tighter timelines and higher sensitivity — highlighted as the more urgent of the two brands for payment gateway resolution.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <p class="content-label">The payment gateway challenge</p>
+          <p class="prose">The defining technical constraint of this deal was the <strong>Cybersource payment gateway</strong>. Shopify cannot directly import from Cybersource — it can't perform a PAN migration from it, and Cybersource itself cannot supply an export that meets PCI compliance standards for Shopify's requirements. A direct path to Shopify Payments didn't exist.</p>
+          <div class="payment-phases">
+            <div class="phase-card">
+              <p class="phase-label phase-label--recommended">Phase 1 — Recommended</p>
+              <p class="phase-title">Cybersource → Braintree</p>
+              <p class="phase-desc">Migrate PANs to Braintree, connect as a <strong>secondary payment gateway</strong> in Shopify. Braintree has more flexible card validation requirements — accepting cards Shopify Payments would reject. Estimated 20–30% card loss during migration is a known tradeoff.</p>
+            </div>
+            <div class="phase-card phase-card--dim">
+              <p class="phase-label">Phase 2 — Optional, later</p>
+              <p class="phase-title">Braintree → Shopify Payments</p>
+              <p class="phase-desc">Once merchants are stable on Braintree, a second optional migration to Shopify Payments can be pursued. The "slow drip" approach — allowing customers to naturally update over time — was discussed as a lower-friction alternative.</p>
+            </div>
+          </div>
+          <p class="prose">This framing — Phase 1 as the clear recommendation, Phase 2 as an optional future step — was deliberately structured to <strong>build merchant confidence</strong> and reduce decision paralysis.</p>
+        </div>
+
+        <div class="content-section">
+          <p class="content-label">My approach</p>
+          <div class="step-flow">
+            <div class="step-item">
+              <span class="step-num">01</span>
+              <div class="step-content">
+                <p class="step-title">Multi-track discovery across two brands and two agencies</p>
+                <p class="step-detail">With PRN and VRS running on separate implementation timelines, I ran parallel discovery tracks — maintaining a consistent Recharge narrative while surfacing brand-specific nuances. Alice handled Liquid frontend for PRN; Codal owned backend integrations for both.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-num">02</span>
+              <div class="step-content">
+                <p class="step-title">Shopify co-sell coordination</p>
+                <p class="step-detail">Regular syncs with Shopify Professional Services ensured our migration sequencing stayed aligned. The payment gateway recommendation emerged from a dedicated Shopify-Recharge alignment call — arriving at merchant conversations with a <strong>unified, pre-aligned recommendation</strong> rather than two vendors figuring it out in front of the client.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-num">03</span>
+              <div class="step-content">
+                <p class="step-title">Widget and portal migration strategy</p>
+                <p class="step-detail">PRN was running a custom subscription widget with middleware for sales tax. I advised a <strong>low-risk testing approach</strong> — starting on a duplicated template or a low-selling product — and helped the team determine whether the existing widget was a removable block or embedded code requiring a full strip-out.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-num">04</span>
+              <div class="step-content">
+                <p class="step-title">Migration sequencing and timeline management</p>
+                <p class="step-detail">For a target go-live in early December, Recharge needed <strong>two weeks' advance notice</strong> to schedule the migrations team. I coordinated sample data pulls from Netsuite, aligned on the migration data template, and helped the team understand the parallel workstreams that needed to run simultaneously.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-num">05</span>
+              <div class="step-content">
+                <p class="step-title">Future-dated subscription workaround</p>
+                <p class="step-detail">The merchant asked about subscriptions that start in the future — not an out-of-the-box capability. I designed a <strong>workaround using line item properties and middleware</strong> to update the next charge date post-purchase, while being transparent that native Shopify draft order support for subscriptions was on the roadmap for H1 2026.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <p class="content-label">Feature strategy recommendations</p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <span class="feature-arrow">→</span>
+              <p class="feature-text"><strong>Unity Portal:</strong> Recommended as the customer-facing subscription management hub — unifying the previously fragmented Shopify and Recharge login experience. Demonstrated live with a 86% customer preference rate over traditional portals for common actions.</p>
+            </div>
+            <div class="feature-item">
+              <span class="feature-arrow">→</span>
+              <p class="feature-text"><strong>Concierge SMS:</strong> Laid out the capability matrix and helped the team think through the phasing decision — implement now vs. defer to the site 2.0 launch — with cost, complexity, and expected retention lift as the decision variables.</p>
+            </div>
+            <div class="feature-item">
+              <span class="feature-arrow">→</span>
+              <p class="feature-text"><strong>Advanced dunning with AI recovery:</strong> Estimated 23%+ improvement in failed payment recovery rates — a meaningful number at enterprise subscription volume.</p>
+            </div>
+            <div class="feature-item">
+              <span class="feature-arrow">→</span>
+              <p class="feature-text"><strong>Winback flows via Retain:</strong> Segmented win-back offers based on cancellation reason and customer LTV, using Recharge's Winbox tool for targeted re-engagement.</p>
+            </div>
+            <div class="feature-item">
+              <span class="feature-arrow">→</span>
+              <p class="feature-text"><strong>Dynamic bundles and variant-level discounts:</strong> Both brands expressed interest in increasing AOV. I walked through Recharge's customizable and preset bundle widgets and addressed inventory management and sales reporting questions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <p class="content-label">Key insight — pre-aligning with Shopify before the merchant call</p>
+          <div class="insight-block">
+            <p class="insight-block__label">Co-sell coordination lesson</p>
+            <p class="insight-block__text">The payment gateway recommendation could have been a messy, multi-vendor conversation in front of the merchant. Instead, we <strong>resolved it in a dedicated Shopify-Recharge sync before any merchant-facing meeting</strong>. By the time we sat down with the merchant, we had a unified recommendation with a clear rationale — not a live debate between two solution teams.</p>
+          </div>
+          <p class="prose">This is a pattern I try to build into every co-sell: whatever the hard problem is, solve it with your partner first. Merchants are paying for confidence, not transparency into vendor alignment struggles.</p>
+          <div class="pull-quote">"Merchants don't want to watch two vendors figure it out. They want to know what you've already figured out together."</div>
+        </div>
+
+        <div class="content-section">
+          <p class="content-label">What I'd do differently</p>
+          <div class="learnings-list">
+            <div class="learning-item"><strong>Get the sample data earlier.</strong> The Netsuite data pull happened later than ideal. For any deal with a hard go-live date, I'd now treat sample data as a discovery prerequisite — something to request on the first call, not the fourth.</div>
+            <div class="learning-item"><strong>Establish a single shared project document across all parties from day one.</strong> With two brands, two agencies, and two vendor solution teams, communication was at times fragmented. A shared source of truth would have reduced repeated context-setting.</div>
+            <div class="learning-item"><strong>Surface the 20–30% card loss risk more prominently upfront.</strong> We discussed it, but I'd want that number foregrounded earlier — as a known variable the merchant needs to factor into launch planning and customer communication strategy.</div>
+            <div class="learning-item"><strong>The Concierge SMS phasing decision deserved more structure.</strong> I'd have brought a clearer decision framework — cost, complexity, timeline impact, expected retention lift — to help the merchant make the call with confidence rather than leaving it as an ongoing discussion.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="case-footer">
+    <a href="/work/faster-way" class="case-footer__back">← FASTer Way</a>
+    <a href="/work" class="case-footer__next">All case studies →</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .case-block { padding: 5rem 3rem; position: relative; z-index: 1; }
+
+  .case-header {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 3rem; align-items: start;
+    margin-bottom: 3.5rem; padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .case-eyebrow { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; margin-top: 6rem; }
+  .case-title { font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .case-title em { font-style: italic; color: var(--accent); }
+  .case-summary { font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--text-secondary); max-width: 580px; }
+
+  .case-meta { display: flex; flex-direction: column; gap: 1rem; min-width: 210px; margin-top: 6rem; }
+  .meta-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.2rem; }
+  .meta-value { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+  .meta-value strong { color: var(--text-primary); font-weight: 500; }
+  .meta-divider { width: 100%; height: 1px; background: var(--border); }
+
+  .case-body { display: grid; grid-template-columns: 200px 1fr; gap: 5rem; align-items: start; }
+
+  .case-nav { position: sticky; top: 7rem; display: flex; flex-direction: column; border: 1px solid var(--border); }
+  .case-nav-item { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); }
+  .case-nav-item:last-child { border-bottom: none; }
+  .case-nav-item.active { color: var(--accent); background: rgba(200,240,84,0.04); }
+
+  .case-content { display: flex; flex-direction: column; gap: 3rem; }
+  .content-section { display: flex; flex-direction: column; gap: 1.25rem; }
+  .content-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+
+  .badge-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .badge { display: inline-flex; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent-border); padding: 0.3rem 0.7rem; }
+
+  .storefront-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .storefront-card { background: var(--surface); padding: 1.5rem; transition: background 0.2s; }
+  .storefront-card:hover { background: var(--surface-2); }
+  .storefront-eyebrow { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
+  .storefront-title { font-size: 0.9rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.5rem; }
+  .storefront-desc { font-size: 0.78rem; line-height: 1.6; color: var(--text-secondary); }
+
+  .payment-phases { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .phase-card { background: var(--surface); padding: 1.5rem; }
+  .phase-card--dim { opacity: 0.55; }
+  .phase-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.6rem; }
+  .phase-label--recommended { color: var(--accent); }
+  .phase-title { font-size: 0.87rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.4rem; }
+  .phase-desc { font-size: 0.78rem; line-height: 1.6; color: var(--text-secondary); }
+  .phase-desc strong { color: var(--text-primary); font-weight: 500; }
+
+  .step-flow { display: flex; flex-direction: column; border: 1px solid var(--border); }
+  .step-item { display: grid; grid-template-columns: 44px 1fr; border-bottom: 1px solid var(--border); transition: background 0.2s; }
+  .step-item:last-child { border-bottom: none; }
+  .step-item:hover { background: var(--surface-2); }
+  .step-num { font-family: var(--font-mono); font-size: 0.62rem; color: var(--accent); padding: 1.4rem 0 1.25rem 1rem; border-right: 1px solid var(--border); }
+  .step-content { padding: 1.25rem 1.5rem; }
+  .step-title { font-size: 0.87rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.3rem; }
+  .step-detail { font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary); }
+  .step-detail strong { color: var(--text-primary); font-weight: 500; }
+
+  .feature-list { display: flex; flex-direction: column; border: 1px solid var(--border); }
+  .feature-item { display: grid; grid-template-columns: 44px 1fr; border-bottom: 1px solid var(--border); }
+  .feature-item:last-child { border-bottom: none; }
+  .feature-arrow { border-right: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); }
+  .feature-text { padding: 1rem 1.25rem; font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary); }
+  .feature-text strong { color: var(--text-primary); font-weight: 500; }
+
+  .learnings-list { display: flex; flex-direction: column; border: 1px solid var(--border); }
+  .learning-item { padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border); font-size: 0.83rem; line-height: 1.65; color: var(--text-secondary); }
+  .learning-item:last-child { border-bottom: none; }
+  .learning-item strong { color: var(--text-primary); font-weight: 500; }
+
+  .case-footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+  .case-footer__back, .case-footer__next { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.2s; }
+  .case-footer__back:hover, .case-footer__next:hover { color: var(--accent); }
+</style>

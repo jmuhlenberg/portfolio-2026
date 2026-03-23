@@ -1,0 +1,235 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const cases = [
+  {
+    num: '01',
+    slug: 'nectar-hydration',
+    client: 'Nectar Hydration',
+    eyebrow: 'Mid-market · Subscription migration',
+    type: 'White glove VIP migration — pre-sales through frontend delivery',
+    tags: ['Migration', 'Frontend dev', 'Biz strategy', 'Mid-market'],
+    featured: true,
+  },
+  {
+    num: '02',
+    slug: 'faster-way',
+    client: 'FASTer Way to Fat Loss',
+    eyebrow: 'Enterprise · Complex migration & architecture',
+    type: 'Multi-system orchestration across a coach-driven subscription platform',
+    tags: ['API / webhooks', 'Solution architecture', 'Enterprise', 'Co-sell'],
+    featured: false,
+  },
+  {
+    num: '03',
+    slug: 'prn-vision',
+    client: 'PRN Vision',
+    eyebrow: 'Enterprise · Multi-storefront unification',
+    type: 'Two-brand healthcare migration with a legacy Cybersource payment gateway',
+    tags: ['Multi-brand', 'Payment migration', 'Enterprise', 'Co-sell'],
+    featured: false,
+  },
+];
+---
+
+<BaseLayout title="Work — JWM" activePage="work">
+
+  <header class="page-header grid-overlay">
+    <p class="eyebrow">Case studies</p>
+    <h1 class="page-title">The <em>work</em></h1>
+    <p class="page-desc">Three projects, written honestly — what the problem was, how I approached it, what I'd do differently. The goal isn't to impress. It's to give you a real sense of how I think and what it's like to work with me.</p>
+  </header>
+
+  <div class="case-index">
+    {cases.map(c => (
+      <a href={`/work/${c.slug}`} class:list={['index-card', { featured: c.featured }]}>
+        <p class="index-num">{c.num}{c.featured ? ' — Featured' : ''}</p>
+        <p class:list={['index-client', { accent: c.featured }]}>{c.client}</p>
+        <p class="index-type">{c.type}</p>
+        <div class="index-tags">
+          {c.tags.map(tag => <span class="index-tag">{tag}</span>)}
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <div class="cases-list">
+    {cases.map(c => (
+      <a href={`/work/${c.slug}`} class="case-row">
+        <div class="case-row__left">
+          <p class="case-row__num">{c.num}</p>
+          <div>
+            <p class="case-row__eyebrow">{c.eyebrow}</p>
+            <h2 class="case-row__client">{c.client}</h2>
+            <p class="case-row__type">{c.type}</p>
+          </div>
+        </div>
+        <div class="case-row__tags">
+          {c.tags.map(tag => <span class="tag">{tag}</span>)}
+        </div>
+        <span class="case-row__cta">Read case study →</span>
+      </a>
+    ))}
+  </div>
+
+  <div class="work-footer">
+    <div class="work-footer__text">
+      <p class="eyebrow">More on the way</p>
+      <p class="work-footer__desc">These three represent recent work I can speak to publicly. More case studies are in progress — check back as new projects wrap up.</p>
+    </div>
+    <a href="/about" class="btn-primary">About me →</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: 10rem 3rem 5rem;
+    border-bottom: 1px solid var(--border);
+    z-index: 1;
+  }
+  .page-title {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .page-desc {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    max-width: 520px;
+  }
+
+  .case-index {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5px;
+    background: var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .index-card {
+    background: var(--surface);
+    padding: 2rem;
+    display: block;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .index-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--accent);
+    transition: height 0.3s ease;
+  }
+  .index-card:hover { background: var(--surface-2); }
+  .index-card:hover::before { height: 100%; }
+  .index-card.featured::before { height: 100%; }
+
+  .index-num {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+  .index-client {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    line-height: 1.1;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+  .index-client.accent { color: var(--accent); }
+  .index-type {
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+  .index-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .index-tag {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.6rem;
+  }
+
+  .cases-list { position: relative; z-index: 1; }
+
+  .case-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 3rem;
+    align-items: center;
+    padding: 2.5rem 3rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .case-row:hover { background: var(--surface); }
+
+  .case-row__left { display: flex; gap: 2rem; align-items: start; }
+  .case-row__num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    padding-top: 0.3rem;
+    flex-shrink: 0;
+  }
+  .case-row__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .case-row__client {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    line-height: 1.1;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+  }
+  .case-row__type { font-size: 0.82rem; line-height: 1.6; color: var(--text-secondary); }
+  .case-row__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; max-width: 220px; justify-content: flex-end; }
+  .case-row__cta {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .work-footer {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    border-top: 1px solid var(--border);
+  }
+  .work-footer__desc {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    max-width: 480px;
+    margin-top: 0.75rem;
+  }
+</style>

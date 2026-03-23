@@ -1,0 +1,277 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="FASTer Way to Fat Loss — JWM" activePage="work">
+
+  <div class="case-block">
+    <div class="case-header">
+      <div>
+        <p class="case-eyebrow">02 — Enterprise · Complex migration &amp; architecture</p>
+        <h1 class="case-title">FASTer Way to <em>Fat Loss</em></h1>
+        <p class="case-summary">An enterprise engagement involving physical and digital subscriptions, a coach-driven calendaring system, a first-of-its-kind SamCart migration, co-selling with Shopify, and more non-standard technical requirements than almost any deal I've worked.</p>
+      </div>
+      <div class="case-meta">
+        <div class="meta-item">
+          <p class="meta-label">Segment</p>
+          <p class="meta-value"><strong>Enterprise</strong></p>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <p class="meta-label">Business model</p>
+          <p class="meta-value">Direct sales / MLM · IoT · Physical + digital subscriptions</p>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <p class="meta-label">Migration source</p>
+          <p class="meta-value"><strong>SamCart</strong> (via Stripe tokens)</p>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <p class="meta-label">Co-sell</p>
+          <p class="meta-value"><strong>Shopify</strong></p>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <p class="meta-label">My scope</p>
+          <p class="meta-value">Pre-sales · Solution architecture · Technical design · Biz strategy</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-body">
+      <nav class="case-nav">
+        <span class="case-nav-item active">The brief</span>
+        <span class="case-nav-item">Technical complexity</span>
+        <span class="case-nav-item">Architecture</span>
+        <span class="case-nav-item">Business constraints</span>
+        <span class="case-nav-item">Key challenge</span>
+        <span class="case-nav-item">Learnings</span>
+      </nav>
+
+      <div class="case-content">
+
+        <div class="content-section">
+          <p class="content-label">The brief</p>
+          <div class="badge-row">
+            <span class="badge">Co-sell with Shopify</span>
+            <span class="badge">Multi-system</span>
+            <span class="badge">Direct sales / MLM</span>
+          </div>
+          <p class="prose">FASTer Way to Fat Loss is a health and wellness company operating at enterprise scale — a direct sales / MLM model with an IoT component, selling both <strong>physical products and digital subscriptions</strong>. Their digital subscription tiers provide different levels of platform access and discounts across their website and app, tied to a proprietary coaching program delivered through assigned coaches on a calendar-based schedule.</p>
+          <p class="prose">They were migrating from <strong>SamCart</strong> with payment processing handled through Stripe. While Recharge is well-acquainted with Stripe customer tokens, SamCart itself was relatively uncharted territory — we had to first validate whether the subscription-related data inside SamCart was usable within Recharge's architecture at all. This was also a <strong>co-sell with Shopify</strong>, adding a layer of multi-party coordination to every technical and commercial conversation.</p>
+        </div>
+
+        <div class="content-section">
+          <p class="content-label">Technical complexity</p>
+          <div class="complexity-grid">
+            <div class="complexity-card">
+              <p class="complexity-title">Uncharted migration source</p>
+              <p class="complexity-desc">SamCart had never been a Recharge migration source before. We couldn't assume data compatibility — we had to validate every subscription field against Recharge's data model before designing anything.</p>
+            </div>
+            <div class="complexity-card">
+              <p class="complexity-title">Coach-driven calendaring logic</p>
+              <p class="complexity-desc">Subscriptions don't activate on purchase. They're dynamically assigned based on coach availability, managed through a commission engine that needed to integrate with Recharge's billing system to pass scheduling metadata.</p>
+            </div>
+            <div class="complexity-card">
+              <p class="complexity-title">Deferred billing architecture</p>
+              <p class="complexity-desc">Customers are charged $249 at checkout, but their recurring $79/month billing doesn't begin until their coach's program round starts — a date that may be weeks in the future and isn't known at purchase time.</p>
+            </div>
+            <div class="complexity-card">
+              <p class="complexity-title">Multi-system orchestration</p>
+              <p class="complexity-desc">ByDesign (commission engine), ShapeTech (frontend/order display), Recharge (subscription billing), Shopify (commerce), and Stripe / Shopify Payments all needed to speak to each other in the right sequence.</p>
+            </div>
+            <div class="complexity-card">
+              <p class="complexity-title">Dual subscription type logic</p>
+              <p class="complexity-desc">Physical and digital subscriptions needed to co-exist with mutual exclusivity rules — customers couldn't hold both a VIP membership and a coaching subscription simultaneously.</p>
+            </div>
+            <div class="complexity-card">
+              <p class="complexity-title">Checkout display customization</p>
+              <p class="complexity-desc">The initial $249 charge needed to display in Shopify's checkout without surfacing the standard recurring billing details — since the $79/month rebill cadence wouldn't match what the customer was seeing at purchase.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <p class="content-label">Solution architecture</p>
+          <p class="prose">I built high-level solution designs in Lucidchart, mapping the full system interaction across every platform involved. The core challenge was sequencing: the right API calls and webhook listeners had to fire in the right order, with coach scheduling metadata flowing through at the right moment to drive billing behavior downstream.</p>
+          <div class="arch-block">
+            <div class="arch-row">
+              <span class="arch-system">Checkout flow</span>
+              <div class="arch-detail">
+                <p class="arch-title">Coach availability retrieved pre-purchase</p>
+                <p class="arch-desc">Before checkout, ShapeTech retrieves the assigned coach's next available program round from ByDesign. That start date is stored as a <strong>cart attribute</strong> and synced with the order post-checkout to trigger the correct Recharge API calls.</p>
+              </div>
+            </div>
+            <div class="arch-row">
+              <span class="arch-system">Recharge API</span>
+              <div class="arch-detail">
+                <p class="arch-title">Post-checkout subscription update sequence</p>
+                <p class="arch-desc">ShapeTech uses the stored start date to call Recharge's API and update the subscription's <strong>product, title, price, and billing frequency</strong> — aligning the $79/month recurring charge with the coach's actual program start date.</p>
+              </div>
+            </div>
+            <div class="arch-row">
+              <span class="arch-system">ByDesign</span>
+              <div class="arch-detail">
+                <p class="arch-title">Commission engine integration</p>
+                <p class="arch-desc">ByDesign manages coach scheduling — both corporate and individual coach availability. It acts as the source of truth for subscription start dates and must pass scheduling metadata to Recharge to ensure billing aligns with program access.</p>
+              </div>
+            </div>
+            <div class="arch-row">
+              <span class="arch-system">Webhook listeners</span>
+              <div class="arch-detail">
+                <p class="arch-title">Subscription lifecycle event handling</p>
+                <p class="arch-desc">Designed the webhook architecture to listen for the right Recharge subscription lifecycle events — ensuring that billing state changes, cancellation attempts, and date modification requests could be caught and handled at the correct system layer.</p>
+              </div>
+            </div>
+            <div class="arch-row">
+              <span class="arch-system">Data mapping</span>
+              <div class="arch-detail">
+                <p class="arch-title">SamCart → Recharge field validation</p>
+                <p class="arch-desc">Before any architecture work, we mapped every SamCart subscription data field against Recharge's data model to confirm usability. This was the foundational step — without it, every downstream design assumption was at risk.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <p class="content-label">Business constraints &amp; requirements</p>
+          <div class="constraints-list">
+            <div class="constraint-item">
+              <span class="constraint-arrow">→</span>
+              <p class="constraint-text"><strong>Mutual exclusivity enforcement:</strong> Customers cannot hold both a VIP membership and a coaching subscription simultaneously. Logic needed to prevent this at checkout and the customer portal layer.</p>
+            </div>
+            <div class="constraint-item">
+              <span class="constraint-arrow">→</span>
+              <p class="constraint-text"><strong>Cancellation deflection:</strong> Both VIP and coaching subscriptions required cancellation flow customization — intercepting cancellation attempts and presenting retention offers before allowing the action to complete.</p>
+            </div>
+            <div class="constraint-item">
+              <span class="constraint-arrow">→</span>
+              <p class="constraint-text"><strong>Billing date lock:</strong> Digital membership subscribers cannot change their next billing date — a constraint that needed to be enforced at the customer portal level without a native toggle in Recharge.</p>
+            </div>
+            <div class="constraint-item">
+              <span class="constraint-arrow">→</span>
+              <p class="constraint-text"><strong>Checkout display customization:</strong> The initial $249 charge needed to display in Shopify checkout without exposing the standard recurring billing cadence — since customers transition to $79/month after the program starts.</p>
+            </div>
+            <div class="constraint-item">
+              <span class="constraint-arrow">→</span>
+              <p class="constraint-text"><strong>PAN migration sequencing:</strong> The Stripe → Shopify Payments migration carries a Shopify-estimated 3–5 week timeline and falls outside Recharge's scope — a named external dependency with its own risk profile.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <p class="content-label">Key challenge — the deferred billing problem</p>
+          <div class="insight-block">
+            <p class="insight-block__label">Architecture design challenge</p>
+            <p class="insight-block__text">The core tension of this engagement was that <strong>purchase moment and subscription activation moment were decoupled</strong> — sometimes by weeks. A customer pays $249 at checkout, but their subscription doesn't start until their assigned coach opens their next program round. That date isn't known at purchase, isn't set by the customer, and can shift based on individual or corporate coach scheduling decisions.</p>
+          </div>
+          <p class="prose">The solution was to treat the checkout event and the subscription activation event as two distinct system moments, each with their own API interaction sequence. ShapeTech acts as the orchestration layer — retrieving the coach's start date pre-checkout, holding it as a cart attribute, and using it post-checkout to drive the Recharge API calls that set the actual billing schedule.</p>
+          <div class="pull-quote">"The hardest part wasn't any single technical problem. It was designing a system where five platforms had to agree on the right sequence of events — every time."</div>
+        </div>
+
+        <div class="content-section">
+          <p class="content-label">What I'd do differently</p>
+          <div class="learnings-list">
+            <div class="learning-item"><strong>Front-load the data mapping work.</strong> Validating SamCart's data model against Recharge's took longer than expected because it was uncharted. On any migration from a non-standard source, I'd now treat data mapping as a pre-discovery prerequisite — not something that runs in parallel with solution design.</div>
+            <div class="learning-item"><strong>Establish a single source of truth for the co-sell workstream early.</strong> Co-selling with Shopify meant two parallel solution designs that needed to stay aligned. A shared architecture document and a standing sync cadence would have reduced the coordination overhead.</div>
+            <div class="learning-item"><strong>Sequence the PAN migration risk more explicitly.</strong> The 3–5 week Stripe → Shopify Payments timeline is an external dependency that could hold up everything else. I'd want that surfaced earlier in the deal cycle as a named risk with a mitigation plan.</div>
+            <div class="learning-item"><strong>The five-system orchestration design needed more failure mode analysis.</strong> I mapped the happy path well. In retrospect, I'd have spent more time explicitly designing what happens when any one of those five systems is delayed, returns an error, or sends data in an unexpected format.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="case-footer">
+    <a href="/work/nectar-hydration" class="case-footer__back">← Nectar Hydration</a>
+    <a href="/work/prn-vision" class="case-footer__next">Next: PRN Vision →</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .case-block { padding: 5rem 3rem; position: relative; z-index: 1; }
+
+  .case-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: start;
+    margin-bottom: 3.5rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .case-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    margin-top: 6rem;
+  }
+  .case-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .case-title em { font-style: italic; color: var(--accent); }
+  .case-summary { font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--text-secondary); max-width: 580px; }
+
+  .case-meta { display: flex; flex-direction: column; gap: 1rem; min-width: 210px; margin-top: 6rem; }
+  .meta-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.2rem; }
+  .meta-value { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+  .meta-value strong { color: var(--text-primary); font-weight: 500; }
+  .meta-divider { width: 100%; height: 1px; background: var(--border); }
+
+  .case-body { display: grid; grid-template-columns: 200px 1fr; gap: 5rem; align-items: start; }
+
+  .case-nav { position: sticky; top: 7rem; display: flex; flex-direction: column; border: 1px solid var(--border); }
+  .case-nav-item { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); }
+  .case-nav-item:last-child { border-bottom: none; }
+  .case-nav-item.active { color: var(--accent); background: rgba(200,240,84,0.04); }
+
+  .case-content { display: flex; flex-direction: column; gap: 3rem; }
+  .content-section { display: flex; flex-direction: column; gap: 1.25rem; }
+  .content-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+
+  .badge-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .badge { display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent-border); padding: 0.3rem 0.7rem; }
+
+  .complexity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .complexity-card { background: var(--surface); padding: 1.5rem; transition: background 0.2s; }
+  .complexity-card:hover { background: var(--surface-2); }
+  .complexity-title { font-size: 0.85rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.4rem; }
+  .complexity-title::before { content: '↳'; color: var(--accent); margin-right: 0.5rem; }
+  .complexity-desc { font-size: 0.78rem; line-height: 1.6; color: var(--text-secondary); }
+
+  .arch-block { display: flex; flex-direction: column; border: 1px solid var(--border); }
+  .arch-row { display: grid; grid-template-columns: 160px 1fr; border-bottom: 1px solid var(--border); transition: background 0.2s; }
+  .arch-row:last-child { border-bottom: none; }
+  .arch-row:hover { background: var(--surface-2); }
+  .arch-system { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); padding: 1.35rem 1.5rem; border-right: 1px solid var(--border); display: flex; align-items: flex-start; }
+  .arch-detail { padding: 1.2rem 1.5rem; }
+  .arch-title { font-size: 0.86rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.3rem; }
+  .arch-desc { font-size: 0.78rem; line-height: 1.6; color: var(--text-secondary); }
+  .arch-desc strong { color: var(--text-primary); font-weight: 500; }
+
+  .constraints-list { display: flex; flex-direction: column; border: 1px solid var(--border); }
+  .constraint-item { display: grid; grid-template-columns: 44px 1fr; border-bottom: 1px solid var(--border); }
+  .constraint-item:last-child { border-bottom: none; }
+  .constraint-arrow { border-right: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--text-muted); }
+  .constraint-text { padding: 1rem 1.25rem; font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary); }
+  .constraint-text strong { color: var(--text-primary); font-weight: 500; }
+
+  .learnings-list { display: flex; flex-direction: column; border: 1px solid var(--border); }
+  .learning-item { padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border); font-size: 0.83rem; line-height: 1.65; color: var(--text-secondary); }
+  .learning-item:last-child { border-bottom: none; }
+  .learning-item strong { color: var(--text-primary); font-weight: 500; }
+
+  .case-footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+  .case-footer__back, .case-footer__next { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.2s; }
+  .case-footer__back:hover, .case-footer__next:hover { color: var(--accent); }
+</style>

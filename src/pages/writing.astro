@@ -1,0 +1,330 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const posts = [
+  {
+    slug: 'discount-ceiling',
+    title: 'Why your discount structure is quietly telling customers to order less',
+    topic: 'Subscription economics',
+    length: '8 min read',
+    featured: true,
+    desc: 'Most quantity-based discount schemes have a ceiling problem nobody notices until you map it in a spreadsheet. The moment your discount stops growing with order size, you\'ve accidentally trained your best customers to stop at the wrong number.',
+    outline: [
+      'The discount ceiling problem — what it is and why it\'s invisible',
+      'How to audit your own discount logic with a simple spreadsheet model',
+      'What "honoring the per-unit price" actually means in practice',
+      'The psychological signal your current structure is sending customers',
+      'How to restructure without alienating your existing subscriber base',
+    ],
+  },
+  {
+    slug: 'se-role',
+    title: 'The SE role nobody describes accurately in a job posting',
+    topic: 'Sales engineering',
+    length: '6 min read',
+    featured: false,
+    desc: 'Job descriptions for sales engineers oscillate between "technically deep" and "great communicator" without ever explaining what it actually feels like to hold both simultaneously under pressure.',
+    outline: [
+      'What the job description says vs. what Tuesday actually looks like',
+      'The moment you realize you\'re a translator, not a technologist',
+      'Why the best SEs think in business outcomes first, features second',
+      'How to know if you\'re cut out for it (honest version)',
+    ],
+  },
+  {
+    slug: 'churn-product-problem',
+    title: 'Churn is a product problem wearing a retention costume',
+    topic: 'Subscription economics',
+    length: '7 min read',
+    featured: false,
+    desc: 'Most subscription businesses treat churn as a retention problem to be solved with better cancellation flows and win-back emails. Some of it is. But the churn that actually kills you is a product problem.',
+    outline: [
+      'The two types of churn and why only one responds to retention tactics',
+      'How to tell which type you have by looking at cancellation timing',
+      'What "product-market fit for subscriptions" actually means',
+      'The retention metrics that matter vs. the ones that look good in a deck',
+    ],
+  },
+  {
+    slug: 'chairlifts',
+    title: 'What a year fixing chairlifts taught me about systems thinking',
+    topic: 'Career & personal growth',
+    length: '5 min read',
+    featured: false,
+    desc: 'I spent a season as a lift operator and mechanic at Beaver Creek — a deliberate career detour that looked like a step back and turned out to be the most useful year of my professional development.',
+    outline: [
+      'Why I left a recruiting career to fix machinery at altitude',
+      'What mechanical systems teach you that software systems don\'t',
+      'The clarity that only comes from stepping fully off the treadmill',
+      'How I think about deliberate career pivots now',
+    ],
+  },
+  {
+    slug: 'cosell-coordination',
+    title: 'Co-selling is a coordination problem, not a relationship problem',
+    topic: 'Business strategy',
+    length: '6 min read',
+    featured: false,
+    desc: 'Most co-sell advice focuses on building strong partner relationships. That matters. But the deals that stall don\'t stall because the relationship is bad — they stall because two teams showed up to a merchant call with different answers.',
+    outline: [
+      'Why vendor misalignment in front of a merchant is so expensive',
+      'The pre-call alignment habit that changes everything',
+      'How to handle genuine disagreements between partner teams',
+      'What "one voice" actually looks like in a multi-vendor deal',
+    ],
+  },
+  {
+    slug: 'colorful-resume',
+    title: 'The colorful resume advantage',
+    topic: 'Career & personal growth',
+    length: '5 min read',
+    featured: false,
+    desc: 'I\'ve worked in government software sales, technical recruiting, ski lift mechanics, point-of-sale support, commercial construction project management, and subscription e-commerce. The non-linear path used to feel like something to explain away.',
+    outline: [
+      'Why the through-line only becomes visible looking backward',
+      'What each "detour" actually gave me that the straight path wouldn\'t have',
+      'How non-linear experience creates pattern recognition linear careers miss',
+      'The case for trusting the detour while you\'re still in it',
+    ],
+  },
+  {
+    slug: 'aov-vanity',
+    title: 'AOV is a vanity metric until you understand what drives it',
+    topic: 'Product & market analysis',
+    length: '7 min read',
+    featured: false,
+    desc: 'Average order value is one of the most cited subscription metrics and one of the least understood. A rising AOV can mean your customers are buying more — or that your lower-value customers churned.',
+    outline: [
+      'The two AOV stories that look identical in a dashboard',
+      'How to segment AOV by cohort to see what\'s actually happening',
+      'The relationship between AOV, LTV, and subscription frequency',
+      'What a healthy AOV trend actually looks like',
+    ],
+  },
+  {
+    slug: 'subscription-harder',
+    title: 'Why subscription commerce is harder than it looks from the outside',
+    topic: 'Tech observations',
+    length: '8 min read',
+    featured: false,
+    desc: 'Everyone has noticed that subscription brands make it easy to sign up and hard to cancel. But the technical and operational complexity underneath a well-run subscription program is genuinely underappreciated.',
+    outline: [
+      'What "just add a subscribe and save button" actually involves',
+      'The payment infrastructure layer most merchants don\'t think about until it breaks',
+      'Why migration between subscription platforms is so expensive and risky',
+      'What good subscription infrastructure actually looks like from the inside',
+    ],
+  },
+];
+
+const featured = posts.find(p => p.featured);
+const rest = posts.filter(p => !p.featured);
+
+const topics = ['All', 'Subscription economics', 'Sales engineering', 'Business strategy', 'Career & personal growth', 'Tech observations', 'Product & market analysis'];
+---
+
+<BaseLayout title="Writing — JWM" activePage="writing">
+
+  <header class="page-header grid-overlay">
+    <p class="eyebrow">Essays &amp; observations</p>
+    <h1 class="page-title">Writing</h1>
+    <p class="page-desc">Short and medium-length posts on subscription economics, sales engineering, business strategy, and the career stuff nobody talks about honestly enough.</p>
+  </header>
+
+  <div class="filter-bar">
+    <span class="filter-label">Filter</span>
+    {topics.map((t, i) => (
+      <button class:list={['filter-btn', { active: i === 0 }]}>{t}</button>
+    ))}
+  </div>
+
+  <!-- Featured post -->
+  {featured && (
+    <div class="featured-post">
+      <div class="featured-left">
+        <p class="featured-eyebrow">
+          Featured <span class="featured-tag">— {featured.topic} · {featured.length}</span>
+        </p>
+        <h2 class="featured-title">{featured.title}</h2>
+        <p class="featured-desc">{featured.desc}</p>
+        <span class="featured-cta">Read post →</span>
+      </div>
+      <div class="featured-outline">
+        <p class="outline-label">Post outline</p>
+        {featured.outline.map((item, i) => (
+          <div class="outline-item">
+            <span class="outline-num">0{i + 1}</span>
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- Posts grid -->
+  <div class="posts-grid">
+    {rest.map((post, i) => (
+      <div class:list={['post-card', { 'post-card--wide': i === rest.length - 1 && rest.length % 2 !== 0 }]}>
+        <div class="post-meta">
+          <span class="post-topic">{post.topic}</span>
+          <span class="post-dot"></span>
+          <span class="post-length">{post.length}</span>
+        </div>
+        <h3 class="post-title">{post.title}</h3>
+        <p class="post-desc">{post.desc}</p>
+        <div class="post-outline">
+          {post.outline.map(item => (
+            <div class="post-outline-item">
+              <span class="post-outline-dash">—</span>
+              {item}
+            </div>
+          ))}
+        </div>
+        <span class="post-cta">Read post →</span>
+      </div>
+    ))}
+  </div>
+
+  <div class="topics-footer">
+    <p class="topics-label mono-label">What I write about</p>
+    <p class="topics-desc">These posts sit at the intersection of <strong>subscription economics, sales engineering craft, and business strategy</strong> — with occasional detours into career thinking and tech observations. Nothing is written to be safe or generic. Posts are short to medium length — long enough to be useful, short enough to finish on a lunch break.</p>
+  </div>
+
+  <div class="subscribe-section">
+    <div>
+      <h2 class="subscribe-heading">New posts, <em>when they're ready.</em></h2>
+      <p class="subscribe-sub">No cadence, no newsletter fluff. Just a heads-up when something new goes up that's worth reading.</p>
+    </div>
+    <div class="subscribe-action">
+      <a href="mailto:jmuhlenberg16@yahoo.com" class="btn-primary">Get notified</a>
+      <p class="subscribe-note">No spam. Unsubscribe anytime.</p>
+    </div>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: 10rem 3rem 5rem;
+    border-bottom: 1px solid var(--border);
+    z-index: 1;
+  }
+  .page-title {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .page-desc { font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--text-secondary); max-width: 520px; }
+
+  /* Filter bar */
+  .filter-bar {
+    position: relative; z-index: 1;
+    padding: 1.25rem 3rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;
+    background: var(--surface);
+  }
+  .filter-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-right: 0.5rem; }
+  .filter-btn {
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-secondary); border: 1px solid var(--border);
+    padding: 0.35rem 0.8rem; cursor: pointer; transition: color 0.2s, border-color 0.2s; background: none;
+  }
+  .filter-btn:hover { color: var(--text-primary); border-color: var(--border-mid); }
+  .filter-btn.active { color: var(--accent); border-color: var(--accent-border); background: rgba(200,240,84,0.04); }
+
+  /* Featured post */
+  .featured-post {
+    position: relative; z-index: 1;
+    padding: 4rem 3rem;
+    border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr 380px;
+    gap: 5rem; align-items: start;
+    transition: background 0.25s; cursor: pointer;
+  }
+  .featured-post:hover { background: var(--surface); }
+  .featured-eyebrow {
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 1rem;
+  }
+  .featured-tag { color: var(--text-muted); }
+  .featured-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.25rem;
+  }
+  .featured-desc { font-size: 0.97rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem; max-width: 520px; }
+  .featured-cta { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+
+  .featured-outline { display: flex; flex-direction: column; border: 1px solid var(--border); }
+  .outline-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--border); background: var(--surface-2); }
+  .outline-item {
+    padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border);
+    font-size: 0.8rem; line-height: 1.5; color: var(--text-secondary);
+    display: flex; gap: 0.75rem; align-items: baseline;
+  }
+  .outline-item:last-child { border-bottom: none; }
+  .outline-num { font-family: var(--font-mono); font-size: 0.6rem; color: var(--accent); flex-shrink: 0; }
+
+  /* Posts grid */
+  .posts-grid {
+    position: relative; z-index: 1;
+    padding: 0;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5px; background: var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-card {
+    background: var(--surface); padding: 2.5rem;
+    cursor: pointer; transition: background 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .post-card--wide { grid-column: 1 / -1; }
+  .post-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0; background: var(--accent);
+    transition: height 0.3s ease;
+  }
+  .post-card:hover { background: var(--surface-2); }
+  .post-card:hover::before { height: 100%; }
+
+  .post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+  .post-topic { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .post-length { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .post-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border-mid); }
+
+  .post-title { font-family: var(--font-serif); font-size: 1.4rem; line-height: 1.15; margin-bottom: 0.75rem; }
+  .post-desc { font-size: 0.83rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 1.75rem; }
+
+  .post-outline { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.75rem; }
+  .post-outline-item { font-size: 0.75rem; line-height: 1.5; color: var(--text-muted); display: flex; gap: 0.6rem; align-items: baseline; }
+  .post-outline-dash { color: var(--accent); flex-shrink: 0; font-size: 0.7rem; }
+  .post-cta { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+
+  /* Topics footer */
+  .topics-footer {
+    position: relative; z-index: 1;
+    padding: 3rem;
+    border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: 220px 1fr; gap: 4rem; align-items: start;
+  }
+  .topics-label { padding-top: 0.3rem; }
+  .topics-desc { font-size: 0.95rem; line-height: 1.8; color: var(--text-secondary); }
+  .topics-desc strong { color: var(--text-primary); font-weight: 500; }
+
+  /* Subscribe */
+  .subscribe-section {
+    position: relative; z-index: 1;
+    padding: 5rem 3rem;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 4rem; align-items: center;
+  }
+  .subscribe-heading { font-family: var(--font-serif); font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.15; }
+  .subscribe-heading em { font-style: italic; color: var(--accent); }
+  .subscribe-sub { font-size: 0.9rem; line-height: 1.75; color: var(--text-secondary); margin-top: 1rem; max-width: 440px; }
+  .subscribe-action { display: flex; flex-direction: column; gap: 1rem; align-items: flex-end; }
+  .subscribe-note { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-align: right; }
+</style>
