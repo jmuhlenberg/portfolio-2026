@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="Nectar Hydration — JWM" activePage="work">
@@ -164,8 +165,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   </div>
 
   <div class="case-footer">
-    <a href="/work" class="case-footer__back">← Back to all work</a>
-    <a href="/work/faster-way" class="case-footer__next">Next: FASTer Way →</a>
+    <a href={`${base}work`} class="case-footer__back">← Back to all work</a>
+    <a href={`${base}work/faster-way`} class="case-footer__next">Next: FASTer Way →</a>
   </div>
 
 </BaseLayout>
@@ -330,6 +331,36 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   }
   .learning-item:last-child { border-bottom: none; }
   .learning-item strong { color: var(--text-primary); font-weight: 500; }
+
+  .insight-block {
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    background: var(--surface);
+  }
+  .insight-block__label {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+  .insight-block__text { font-size: 0.88rem; line-height: 1.7; color: var(--text-secondary); }
+  .insight-block__text strong { color: var(--text-primary); font-weight: 500; }
+
+  .pull-quote {
+    border-left: 2px solid var(--accent);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .prose { font-size: 0.9rem; line-height: 1.8; color: var(--text-secondary); }
+  .prose strong { color: var(--text-primary); font-weight: 500; }
+  .prose em { font-style: italic; }
 
   .case-footer {
     position: relative;

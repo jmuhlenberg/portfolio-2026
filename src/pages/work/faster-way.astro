@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="FASTer Way to Fat Loss — JWM" activePage="work">
@@ -185,8 +186,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   </div>
 
   <div class="case-footer">
-    <a href="/work/nectar-hydration" class="case-footer__back">← Nectar Hydration</a>
-    <a href="/work/prn-vision" class="case-footer__next">Next: PRN Vision →</a>
+    <a href={`${base}work/nectar-hydration`} class="case-footer__back">← Nectar Hydration</a>
+    <a href={`${base}work/prn-vision`} class="case-footer__next">Next: PRN Vision →</a>
   </div>
 
 </BaseLayout>
@@ -203,22 +204,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     padding-bottom: 3rem;
     border-bottom: 1px solid var(--border);
   }
-  .case-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1rem;
-    margin-top: 6rem;
-  }
-  .case-title {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-  }
+  .case-eyebrow { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; margin-top: 6rem; }
+  .case-title { font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1rem; }
   .case-title em { font-style: italic; color: var(--accent); }
   .case-summary { font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--text-secondary); max-width: 580px; }
 
@@ -265,6 +252,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   .constraint-arrow { border-right: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--text-muted); }
   .constraint-text { padding: 1rem 1.25rem; font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary); }
   .constraint-text strong { color: var(--text-primary); font-weight: 500; }
+
+  .insight-block { border: 1px solid var(--border); padding: 1.5rem; background: var(--surface); }
+  .insight-block__label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.75rem; }
+  .insight-block__text { font-size: 0.88rem; line-height: 1.7; color: var(--text-secondary); }
+  .insight-block__text strong { color: var(--text-primary); font-weight: 500; }
+
+  .pull-quote { border-left: 2px solid var(--accent); padding: 0.5rem 0 0.5rem 1.5rem; font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; line-height: 1.6; color: var(--text-secondary); }
+
+  .prose { font-size: 0.9rem; line-height: 1.8; color: var(--text-secondary); }
+  .prose strong { color: var(--text-primary); font-weight: 500; }
 
   .learnings-list { display: flex; flex-direction: column; border: 1px solid var(--border); }
   .learning-item { padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border); font-size: 0.83rem; line-height: 1.65; color: var(--text-secondary); }
