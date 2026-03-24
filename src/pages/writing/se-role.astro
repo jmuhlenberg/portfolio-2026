@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="The SE role nobody describes accurately in a job posting — JWM" activePage="writing">
+
+  <article class="post">
+
+    <header class="post-header">
+      <div class="post-header__meta">
+        <span class="post-topic">Sales engineering</span>
+        <span class="post-dot"></span>
+        <span class="post-length">6 min read</span>
+      </div>
+      <h1 class="post-title">The SE role nobody describes accurately in a job posting</h1>
+      <p class="post-subtitle">Job descriptions for sales engineers oscillate between "technically deep" and "great communicator" without ever explaining what it actually feels like to hold both simultaneously under pressure.</p>
+    </header>
+
+    <div class="post-body">
+
+      <div class="post-content">
+
+        <section class="post-section">
+          <h2>What the job description says vs. what Tuesday actually looks like</h2>
+          <p>The job posting will say something like: "Partner with Account Executives to deliver compelling technical demonstrations and guide prospects through complex evaluations." It will list requirements like "5+ years of experience in SaaS" and "strong ability to translate technical concepts for non-technical audiences." It will mention Salesforce proficiency and a willingness to travel.</p>
+          <p>What it won't tell you is what Tuesday actually looks like.</p>
+          <p>On a real Tuesday, you might start the morning finishing a custom demo environment you built the night before for a prospect who changed their requirements on Friday. You'll jump on a discovery call where the prospect's technical lead asks a question that isn't in any product documentation, and you'll need to give a credible answer in real time while your AE watches from the corner of their screen. In the afternoon you'll get pulled into an internal Slack thread about whether a deal's architecture is actually feasible, and you'll need to have an opinion that's both technically defensible and commercially helpful. By end of day you'll have written two follow-up emails — one for a technical audience, one for a business one — about the same conversation.</p>
+          <p>None of that is in the job description. All of it is the job.</p>
+        </section>
+
+        <section class="post-section">
+          <h2>The moment you realize you're a translator, not a technologist</h2>
+          <p>Early in my SE career I thought the job was mostly technical. Know the product deeply, demo it well, answer the hard questions. I spent a lot of energy on product depth — understanding every edge case, every API endpoint, every configuration option.</p>
+          <p>That knowledge mattered. It still matters. But the moment that reframed everything for me was a call where I gave a technically accurate answer that completely killed the momentum of a deal.</p>
+          <p>The prospect had asked whether a specific integration was supported. I told them the honest answer: it was on the roadmap but not yet available. Technically correct. Commercially disastrous. What I should have done was understand what they actually needed that integration for, assess whether there was an existing path that addressed the same underlying problem, and lead with that — with the roadmap item as supporting context rather than the headline.</p>
+          <p>The realization was this: the job isn't to answer questions accurately. It's to understand what's behind the question, and respond to that. Technical knowledge is the tool. Understanding the business problem is the job.</p>
+          <p>That's the translation layer. And it's harder than it sounds, because it requires you to hold two models in your head simultaneously — the technical reality of what your product does, and the commercial reality of what the prospect actually needs — and find the shortest honest path between them.</p>
+        </section>
+
+        <div class="pull-quote">
+          "The best SEs I've worked with don't think about features. They think about the decision the prospect is trying to make, and work backward from there."
+        </div>
+
+        <section class="post-section">
+          <h2>Why the best SEs think in business outcomes first, features second</h2>
+          <p>There's a version of the SE role that's essentially a product tour guide. You demo the features, answer the technical questions, write the security questionnaire responses. You're valuable in the deal, but you're not moving it.</p>
+          <p>The version of the role that actually moves deals looks different. It starts with a different question in discovery — not "what features are you looking for?" but "what does good look like six months after you've made this decision?" It maps the prospect's success criteria before it maps product capabilities. It identifies the one or two things the prospect is most afraid of getting wrong, and addresses those explicitly rather than hoping the demo takes care of it.</p>
+          <p>In practice this means coming into a technical call with a point of view. Not just a demo flow — an opinion about what this prospect actually needs, based on what you learned in discovery, and a plan to address the thing most likely to stall the deal. That requires knowing the product cold. But it requires knowing the business problem better.</p>
+          <p>The feature knowledge is table stakes. The business outcome orientation is the differentiator.</p>
+        </section>
+
+        <section class="post-section">
+          <h2>How to know if you're cut out for it — the honest version</h2>
+          <p>Most career advice about the SE role focuses on the technical bar or the communication skills. Those matter. But the thing that actually separates people who thrive in this role from people who find it exhausting is something different: comfort with ambiguity under pressure.</p>
+          <p>On any given call, you will not have all the information you need. The prospect will ask something you weren't expecting. Your product will have a gap you have to navigate honestly without torpedoing the deal. Your AE will have set an expectation in a previous meeting that you now need to manage. You'll need to make a judgment call — in real time, with a customer watching — about how to handle it.</p>
+          <p>If that scenario sounds energizing, the SE role probably fits you. If it sounds like a source of ongoing dread, it probably doesn't — no matter how technically strong you are.</p>
+          <p>The other honest signal: this role requires you to care genuinely about whether the customer succeeds. Not performatively — actually. Because the moments where you have to deliver an uncomfortable truth, or push back on a customer's stated requirements because you think they're solving the wrong problem, require enough credibility and trust that the customer believes you're on their side. That credibility doesn't come from product knowledge. It comes from demonstrating, consistently, that you're trying to get them to the right outcome rather than trying to close the deal.</p>
+          <p>Those two things often align. When they don't, which one you prioritize says everything about what kind of SE you are.</p>
+        </section>
+
+      </div>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-block">
+          <p class="sidebar-label">About this post</p>
+          <p class="sidebar-text">Written from several years in the SE seat — across recruiting tech, point-of-sale, and subscription e-commerce. The translation problem is real regardless of the industry.</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Filed under</p>
+          <p class="sidebar-tag">Sales engineering</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Read time</p>
+          <p class="sidebar-text">6 min</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Related reading</p>
+          <a href={`${base}writing/cosell-coordination`} class="sidebar-link">Co-selling is a coordination problem, not a relationship problem →</a>
+          <a href={`${base}writing/colorful-resume`} class="sidebar-link">The colorful resume advantage →</a>
+        </div>
+      </aside>
+
+    </div>
+
+  </article>
+
+  <div class="post-footer">
+    <a href={`${base}writing`} class="post-footer__back">← All writing</a>
+    <a href="mailto:jmuhlenberg16@yahoo.com" class="post-footer__cta">Get notified when new posts go up →</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .post { position: relative; z-index: 1; }
+
+  .post-header {
+    padding: 9rem 3rem 4rem;
+    border-bottom: 1px solid var(--border);
+    max-width: 720px;
+  }
+  .post-header__meta {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .post-topic { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .post-length { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .post-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border-mid); }
+
+  .post-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .post-subtitle {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .post-body {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 5rem;
+    padding: 4rem 3rem;
+    align-items: start;
+  }
+
+  .post-content { display: flex; flex-direction: column; gap: 2.5rem; max-width: 640px; }
+
+  .post-section { display: flex; flex-direction: column; gap: 1rem; }
+  .post-section h2 {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.25rem;
+  }
+  .post-section p {
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+  }
+  .post-section p em { font-style: italic; color: var(--text-primary); }
+
+  .pull-quote {
+    border-left: 2px solid var(--accent);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0.5rem 0;
+  }
+
+  .post-sidebar {
+    position: sticky;
+    top: 7rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+  }
+  .sidebar-block {
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .sidebar-block:last-child { border-bottom: none; }
+  .sidebar-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+  .sidebar-text { font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary); }
+  .sidebar-tag { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .sidebar-link { font-size: 0.78rem; line-height: 1.5; color: var(--text-secondary); transition: color 0.2s; }
+  .sidebar-link:hover { color: var(--accent); }
+
+  .post-footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .post-footer__back,
+  .post-footer__cta {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+  }
+  .post-footer__back:hover,
+  .post-footer__cta:hover { color: var(--accent); }
+</style>

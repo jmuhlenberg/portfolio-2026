@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="AOV is a vanity metric until you understand what drives it — JWM" activePage="writing">
+
+  <article class="post">
+
+    <header class="post-header">
+      <div class="post-header__meta">
+        <span class="post-topic">Product & market analysis</span>
+        <span class="post-dot"></span>
+        <span class="post-length">7 min read</span>
+      </div>
+      <h1 class="post-title">AOV is a vanity metric until you understand what drives it</h1>
+      <p class="post-subtitle">Average order value is one of the most cited subscription metrics and one of the least understood. A rising AOV can mean your customers are buying more — or that your lower-value customers churned.</p>
+    </header>
+
+    <div class="post-body">
+
+      <div class="post-content">
+
+        <section class="post-section">
+          <h2>The two AOV stories that look identical in a dashboard</h2>
+          <p>Imagine two subscription brands. Both report a 15% increase in average order value over the past two quarters. Both present this as a positive trend in their board decks. Both are probably telling themselves a story about customer engagement and product mix improvement.</p>
+          <p>For one of them, the story is true. Customers are genuinely adding more to their orders. The product experience is working. Loyalty is deepening. AOV is growing because subscribers are buying more per cycle, and the subscriber base is growing alongside it.</p>
+          <p>For the other, the story is a statistical artifact. Lower-value subscribers churned at a higher rate than higher-value ones — as they almost always do — and the average moved upward simply because the denominator got smaller at the bottom. The brand didn't earn a higher AOV. It just lost its lower-spending customers faster than it lost its higher-spending ones.</p>
+          <p>These two stories produce identical headline numbers. They have completely different implications for how a business should be run. And most AOV reporting doesn't tell you which one you're looking at.</p>
+        </section>
+
+        <section class="post-section">
+          <h2>How to segment AOV by cohort to see what's actually happening</h2>
+          <p>The fix is cohort-level analysis, and it's less complicated than it sounds.</p>
+          <p>Instead of looking at AOV across your entire subscriber base as a single number, break it out by acquisition cohort — subscribers acquired in the same time window, tracked together over time. Then ask: within each cohort, how is AOV moving as the cohort ages?</p>
+          <p>A cohort whose AOV grows over time is a healthy signal. These subscribers are deepening their relationship with the product — adding items, upgrading, expanding. That's genuine AOV improvement, and it's worth understanding what's driving it so you can replicate it.</p>
+          <p>A cohort whose AOV is flat or declining tells a different story. These subscribers aren't engaging more deeply over time. They may be staying — the retention rate looks fine — but they're not expanding. Flat cohort AOV over a long lifecycle is a quiet signal of ceiling risk: the subscriber has found their equilibrium and there's no mechanism pulling them higher.</p>
+          <p>The most important cohort to watch closely is your most recent one. New subscribers represent your current acquisition quality and your current product experience. If their early AOV trajectory looks different from older cohorts at the same lifecycle stage, something has changed — in who you're acquiring, in how you're onboarding them, or in what the product delivers in those first few cycles.</p>
+        </section>
+
+        <div class="pull-quote">
+          "A rising AOV tells you something changed. Cohort analysis tells you whether that change was earned or inherited from churn."
+        </div>
+
+        <section class="post-section">
+          <h2>The relationship between AOV, LTV, and subscription frequency</h2>
+          <p>AOV doesn't exist in isolation. Its real significance only emerges in relationship to two other numbers: lifetime value and order frequency.</p>
+          <p>LTV, simplified, is a function of AOV multiplied by order frequency multiplied by subscriber lifetime. A business optimizing for LTV has three levers. Most subscription brands focus almost exclusively on the third — extending subscriber lifetime through retention tactics — and underinvest in the first two.</p>
+          <p>This is a missed opportunity, because AOV and frequency are often more actionable than lifetime in the short term. A subscriber who adds one additional item per order and places one additional order per year is worth meaningfully more over their lifetime than a subscriber who stays slightly longer but never expands. And interventions that drive AOV improvement — better product discovery, smarter bundling, quantity incentives that actually work — often have faster feedback loops than retention programs.</p>
+          <p>Frequency is the underappreciated variable. Most subscription analytics platforms surface AOV prominently and treat frequency as a fixed input based on the subscription interval the customer selected at signup. But interval selection is malleable. A subscriber on a 60-day cadence who can be nudged to 45 days without churning is worth roughly 33% more over the same period. That's an AOV-equivalent improvement achieved through a completely different lever.</p>
+          <p>The brands that think about LTV as a three-variable optimization problem — and build their analytics to reflect that — tend to find more growth surface than the ones treating it as a retention problem with AOV as a side metric.</p>
+        </section>
+
+        <section class="post-section">
+          <h2>What a healthy AOV trend actually looks like</h2>
+          <p>A healthy AOV trend has a few characteristics worth naming explicitly, because they're not always intuitive.</p>
+          <p>First, it grows within cohorts over time — not just in aggregate. If your overall AOV is rising but cohort-level AOV is flat, the aggregate trend is a demographic artifact, not a behavioral one. Cohort AOV growth is the signal that matters.</p>
+          <p>Second, it's relatively stable at the acquisition point across cohorts. If newer cohorts are coming in at significantly lower starting AOV than older ones, you're acquiring a different kind of customer — probably a lower-intent one, possibly through broader or less targeted acquisition channels. That starting point matters because it sets the ceiling for where AOV can go.</p>
+          <p>Third, it doesn't spike sharply after promotional periods and then revert. Promotional AOV lift is real but temporary. A discount event that drives order size in one cycle doesn't create a lasting behavioral shift. If your AOV trend is driven primarily by promotional cadence rather than organic engagement, the underlying trajectory is probably flat.</p>
+          <p>What you're ultimately looking for is an AOV trend that reflects genuine deepening — subscribers who are engaging more with the product over time because the product is delivering enough value to justify it. Everything else is noise dressed up as a trend line. The metric is only as useful as the story behind it, and that story requires more than a dashboard to tell.</p>
+        </section>
+
+      </div>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-block">
+          <p class="sidebar-label">About this post</p>
+          <p class="sidebar-text">AOV is one of the most frequently misread metrics in subscription commerce. The number is easy to report. Understanding what drives it is a different exercise entirely.</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Filed under</p>
+          <p class="sidebar-tag">Product & market analysis</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Read time</p>
+          <p class="sidebar-text">7 min</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Related reading</p>
+          <a href={`${base}writing/churn-product-problem`} class="sidebar-link">Churn is a product problem wearing a retention costume →</a>
+          <a href={`${base}writing/discount-ceiling`} class="sidebar-link">Why your discount structure is quietly telling customers to order less →</a>
+        </div>
+      </aside>
+
+    </div>
+
+  </article>
+
+  <div class="post-footer">
+    <a href={`${base}writing`} class="post-footer__back">← All writing</a>
+    <a href="mailto:jmuhlenberg16@yahoo.com" class="post-footer__cta">Get notified when new posts go up →</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .post { position: relative; z-index: 1; }
+
+  .post-header {
+    padding: 9rem 3rem 4rem;
+    border-bottom: 1px solid var(--border);
+    max-width: 720px;
+  }
+  .post-header__meta {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .post-topic { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .post-length { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .post-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border-mid); }
+
+  .post-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .post-subtitle {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .post-body {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 5rem;
+    padding: 4rem 3rem;
+    align-items: start;
+  }
+
+  .post-content { display: flex; flex-direction: column; gap: 2.5rem; max-width: 640px; }
+
+  .post-section { display: flex; flex-direction: column; gap: 1rem; }
+  .post-section h2 {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.25rem;
+  }
+  .post-section p {
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+  }
+  .post-section p em { font-style: italic; color: var(--text-primary); }
+
+  .pull-quote {
+    border-left: 2px solid var(--accent);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0.5rem 0;
+  }
+
+  .post-sidebar {
+    position: sticky;
+    top: 7rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+  }
+  .sidebar-block {
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .sidebar-block:last-child { border-bottom: none; }
+  .sidebar-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+  .sidebar-text { font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary); }
+  .sidebar-tag { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .sidebar-link { font-size: 0.78rem; line-height: 1.5; color: var(--text-secondary); transition: color 0.2s; }
+  .sidebar-link:hover { color: var(--accent); }
+
+  .post-footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .post-footer__back,
+  .post-footer__cta {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+  }
+  .post-footer__back:hover,
+  .post-footer__cta:hover { color: var(--accent); }
+</style>

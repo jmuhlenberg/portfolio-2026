@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Why your discount structure is quietly telling customers to order less — JWM" activePage="writing">
+
+  <article class="post">
+
+    <header class="post-header">
+      <div class="post-header__meta">
+        <span class="post-topic">Subscription economics</span>
+        <span class="post-dot"></span>
+        <span class="post-length">8 min read</span>
+      </div>
+      <h1 class="post-title">Why your discount structure is quietly telling customers to order less</h1>
+      <p class="post-subtitle">Most quantity-based discount schemes have a ceiling problem nobody notices until you map it in a spreadsheet. The moment your discount stops growing with order size, you've accidentally trained your best customers to stop at the wrong number.</p>
+    </header>
+
+    <div class="post-body">
+
+      <div class="post-content">
+
+        <section class="post-section">
+          <h2>The discount ceiling problem — what it is and why it's invisible</h2>
+          <p>Most subscription brands that offer quantity-based discounts think they're doing something smart. Buy more, save more. The logic is intuitive. The execution is usually broken.</p>
+          <p>Here's how it typically plays out. A brand builds a tiered discount structure — something like $10 off for 2 items, $35 off for 3, $76 off for 4 or more. They launch it, it performs reasonably well, and nobody revisits it. The discount becomes part of the furniture.</p>
+          <p>What nobody notices is what happens at the top of the tier. Once a customer reaches 4 items, the discount doesn't grow anymore. A customer buying 4 products and a customer buying 7 products receive exactly the same dollar discount. From the brand's perspective, this feels like a reasonable cap. From the customer's perspective — if they ever thought about it — it feels like a signal: <em>four is the right answer.</em></p>
+          <p>The reason this stays invisible is that most brands never map their discount logic against customer behavior at the item level. They see conversion rates and average order values in aggregate, and those numbers look fine. What they don't see is the quiet behavioral ceiling they've built into their own checkout flow.</p>
+        </section>
+
+        <section class="post-section">
+          <h2>How to audit your own discount logic with a simple spreadsheet model</h2>
+          <p>The fix starts with visibility. Before you can restructure anything, you need to see what your current discount structure is actually communicating at each quantity tier.</p>
+          <p>Build a simple table. Column one is quantity — every integer from 1 to whatever your realistic order ceiling is. Column two is the total discount applied at that quantity. Column three is the per-unit discount at each tier: total discount divided by quantity.</p>
+          <p>That third column is where the problem lives.</p>
+          <p>I worked with a client not long ago whose quantity-based discount structure looked perfectly reasonable on the surface. The discount grew at each tier — until it didn't. When we mapped out the effective per-unit savings at each quantity level, there was a hard stop. At a certain quantity, the per-unit discount actually started declining. Customers who added more items to their cart were saving less per unit than customers who added fewer.</p>
+          <p>They weren't doing this intentionally. It was an artifact of how the discount tiers had been built, and nobody had ever looked at it this way. Once you see it laid out per-unit, it's impossible to unsee.</p>
+          <p>If your structure does this — and many do — you have a discount ceiling problem.</p>
+        </section>
+
+        <div class="pull-quote">
+          "The moment your per-unit savings flatten or decline, you've stopped rewarding your best customers. You've just started penalizing them for paying attention."
+        </div>
+
+        <section class="post-section">
+          <h2>What "honoring the per-unit price" actually means in practice</h2>
+          <p>There's a concept worth naming here: the per-unit price promise. When a customer sees a quantity discount, they're making a mental model of how your pricing works. More items equals more savings. That's the implicit contract.</p>
+          <p>When your discount structure caps out, you break that contract — silently. The customer doesn't see a notice. They don't get an explanation. They just find, if they're paying attention, that adding a fifth or sixth or seventh item to their cart doesn't move the savings number. So they stop at four.</p>
+          <p>Honoring the per-unit price means designing your discount structure so that each additional unit your customer adds continues to reward them proportionally. This doesn't mean the discount has to grow at the same rate indefinitely — marginal savings can taper. But they should never flatline, and they should never decline.</p>
+          <p>The simplest version of this is a true per-unit discount model: every item added saves the customer a fixed amount per unit. The total discount grows linearly with quantity. No ceiling. No ambiguity. The customer learns quickly that more is always better.</p>
+        </section>
+
+        <section class="post-section">
+          <h2>The psychological signal your current structure is sending customers</h2>
+          <p>Pricing is communication. Every number in your checkout flow is sending a signal to your customer — whether you intended it or not.</p>
+          <p>A quantity discount that caps at four items is telling customers that four is the optimal quantity. Not explicitly. Not in words. But behaviorally, it's the only logical conclusion a rational customer can draw. If there's no benefit to adding a fifth item, the incentive structure says four is enough.</p>
+          <p>This matters more than it might seem, because subscription customers — particularly repeat subscribers — do learn your pricing over time. They may not be doing spreadsheet math on every order, but they internalize the rules. They find the number that maximizes their value and they stick to it.</p>
+          <p>If that number is four when it could be six, you've left two units of revenue per order cycle on the table. Multiply that by order frequency, multiply by your subscriber base, and the compounding cost of a miscalibrated discount structure becomes significant.</p>
+          <p>The good news is that the signal works in both directions. A discount structure that visibly, consistently rewards larger orders trains customers toward larger orders. The same behavioral logic that caps customers at four can be redirected to push them toward six.</p>
+        </section>
+
+        <section class="post-section">
+          <h2>How to restructure without alienating your existing subscriber base</h2>
+          <p>The practical concern most brands raise at this point is reasonable: we have existing subscribers who are used to the current structure. If we change it, do we break their expectations? Do we lose them?</p>
+          <p>The answer depends on which direction you're moving. If your restructure increases savings for customers who add more items — which it should, if you're fixing a ceiling problem — then the change is additive for anyone already buying at or above the previous cap. The customers who were buying exactly four items because that was the ceiling now have a reason to buy five or six. Nobody's savings go down.</p>
+          <p>The transition approach that tends to work best is preserving the discount value at the tiers your current subscribers are already on, and extending the incentive beyond that. Keep the $76 off at four items. Add a meaningful per-unit increment for five, six, seven. Let the structure grow rather than replacing it wholesale.</p>
+          <p>This gives you two things: continuity for your existing base, and a genuine behavioral nudge toward higher quantity. You're not changing the deal your subscribers signed up for. You're extending it in their favor.</p>
+          <p>One final note: when you make this change, communicate it. A brief, clear message to your subscriber base — "we've updated our discount structure to reward larger orders more consistently" — does two things. It demonstrates that you're paying attention to how your program works. And it gives your customers a reason to look at the cart again with fresh eyes.</p>
+          <p>The ceiling problem is quiet. The fix doesn't have to be.</p>
+        </section>
+
+      </div>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-block">
+          <p class="sidebar-label">About this post</p>
+          <p class="sidebar-text">This observation came directly out of a client engagement — a subscription brand whose discount structure was performing fine on paper but quietly capping customer behavior at the wrong quantity.</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Filed under</p>
+          <p class="sidebar-tag">Subscription economics</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Read time</p>
+          <p class="sidebar-text">8 min</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Related reading</p>
+          <a href={`${base}writing/churn-product-problem`} class="sidebar-link">Churn is a product problem wearing a retention costume →</a>
+          <a href={`${base}writing/aov-vanity`} class="sidebar-link">AOV is a vanity metric until you understand what drives it →</a>
+        </div>
+      </aside>
+
+    </div>
+
+  </article>
+
+  <div class="post-footer">
+    <a href={`${base}writing`} class="post-footer__back">← All writing</a>
+    <a href="mailto:jmuhlenberg16@yahoo.com" class="post-footer__cta">Get notified when new posts go up →</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .post { position: relative; z-index: 1; }
+
+  .post-header {
+    padding: 9rem 3rem 4rem;
+    border-bottom: 1px solid var(--border);
+    max-width: 720px;
+  }
+  .post-header__meta {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .post-topic { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .post-length { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .post-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border-mid); }
+
+  .post-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .post-subtitle {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .post-body {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 5rem;
+    padding: 4rem 3rem;
+    align-items: start;
+  }
+
+  .post-content { display: flex; flex-direction: column; gap: 2.5rem; max-width: 640px; }
+
+  .post-section { display: flex; flex-direction: column; gap: 1rem; }
+  .post-section h2 {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.25rem;
+  }
+  .post-section p {
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+  }
+  .post-section p em { font-style: italic; color: var(--text-primary); }
+
+  .pull-quote {
+    border-left: 2px solid var(--accent);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0.5rem 0;
+  }
+
+  .post-sidebar {
+    position: sticky;
+    top: 7rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+  }
+  .sidebar-block {
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .sidebar-block:last-child { border-bottom: none; }
+  .sidebar-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+  .sidebar-text { font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary); }
+  .sidebar-tag { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .sidebar-link { font-size: 0.78rem; line-height: 1.5; color: var(--text-secondary); transition: color 0.2s; }
+  .sidebar-link:hover { color: var(--accent); }
+
+  .post-footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .post-footer__back,
+  .post-footer__cta {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+  }
+  .post-footer__back:hover,
+  .post-footer__cta:hover { color: var(--accent); }
+</style>

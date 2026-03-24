@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const base = import.meta.env.BASE_URL;
+
 const posts = [
   {
     slug: 'discount-ceiling',
@@ -8,6 +10,7 @@ const posts = [
     topic: 'Subscription economics',
     length: '8 min read',
     featured: true,
+    ready: true,
     desc: 'Most quantity-based discount schemes have a ceiling problem nobody notices until you map it in a spreadsheet. The moment your discount stops growing with order size, you\'ve accidentally trained your best customers to stop at the wrong number.',
     outline: [
       'The discount ceiling problem — what it is and why it\'s invisible',
@@ -23,6 +26,7 @@ const posts = [
     topic: 'Sales engineering',
     length: '6 min read',
     featured: false,
+    ready: true,
     desc: 'Job descriptions for sales engineers oscillate between "technically deep" and "great communicator" without ever explaining what it actually feels like to hold both simultaneously under pressure.',
     outline: [
       'What the job description says vs. what Tuesday actually looks like',
@@ -37,6 +41,7 @@ const posts = [
     topic: 'Subscription economics',
     length: '7 min read',
     featured: false,
+    ready: true,
     desc: 'Most subscription businesses treat churn as a retention problem to be solved with better cancellation flows and win-back emails. Some of it is. But the churn that actually kills you is a product problem.',
     outline: [
       'The two types of churn and why only one responds to retention tactics',
@@ -51,6 +56,7 @@ const posts = [
     topic: 'Career & personal growth',
     length: '5 min read',
     featured: false,
+    ready: false,
     desc: 'I spent a season as a lift operator and mechanic at Beaver Creek — a deliberate career detour that looked like a step back and turned out to be the most useful year of my professional development.',
     outline: [
       'Why I left a recruiting career to fix machinery at altitude',
@@ -65,6 +71,7 @@ const posts = [
     topic: 'Business strategy',
     length: '6 min read',
     featured: false,
+    ready: true,
     desc: 'Most co-sell advice focuses on building strong partner relationships. That matters. But the deals that stall don\'t stall because the relationship is bad — they stall because two teams showed up to a merchant call with different answers.',
     outline: [
       'Why vendor misalignment in front of a merchant is so expensive',
@@ -79,6 +86,7 @@ const posts = [
     topic: 'Career & personal growth',
     length: '5 min read',
     featured: false,
+    ready: false,
     desc: 'I\'ve worked in government software sales, technical recruiting, ski lift mechanics, point-of-sale support, commercial construction project management, and subscription e-commerce. The non-linear path used to feel like something to explain away.',
     outline: [
       'Why the through-line only becomes visible looking backward',
@@ -93,6 +101,7 @@ const posts = [
     topic: 'Product & market analysis',
     length: '7 min read',
     featured: false,
+    ready: true,
     desc: 'Average order value is one of the most cited subscription metrics and one of the least understood. A rising AOV can mean your customers are buying more — or that your lower-value customers churned.',
     outline: [
       'The two AOV stories that look identical in a dashboard',
@@ -107,6 +116,7 @@ const posts = [
     topic: 'Tech observations',
     length: '8 min read',
     featured: false,
+    ready: true,
     desc: 'Everyone has noticed that subscription brands make it easy to sign up and hard to cancel. But the technical and operational complexity underneath a well-run subscription program is genuinely underappreciated.',
     outline: [
       'What "just add a subscribe and save button" actually involves',
@@ -121,6 +131,10 @@ const featured = posts.find(p => p.featured);
 const rest = posts.filter(p => !p.featured);
 
 const topics = ['All', 'Subscription economics', 'Sales engineering', 'Business strategy', 'Career & personal growth', 'Tech observations', 'Product & market analysis'];
+
+function postHref(post) {
+  return post.ready ? `${base}writing/${post.slug}` : `${base}coming-soon`;
+}
 ---
 
 <BaseLayout title="Writing — JWM" activePage="writing">
@@ -138,9 +152,8 @@ const topics = ['All', 'Subscription economics', 'Sales engineering', 'Business 
     ))}
   </div>
 
-  <!-- Featured post -->
   {featured && (
-    <div class="featured-post">
+    <a href={postHref(featured)} class="featured-post">
       <div class="featured-left">
         <p class="featured-eyebrow">
           Featured <span class="featured-tag">— {featured.topic} · {featured.length}</span>
@@ -158,13 +171,12 @@ const topics = ['All', 'Subscription economics', 'Sales engineering', 'Business 
           </div>
         ))}
       </div>
-    </div>
+    </a>
   )}
 
-  <!-- Posts grid -->
   <div class="posts-grid">
     {rest.map((post, i) => (
-      <div class:list={['post-card', { 'post-card--wide': i === rest.length - 1 && rest.length % 2 !== 0 }]}>
+      <a href={postHref(post)} class:list={['post-card', { 'post-card--wide': i === rest.length - 1 && rest.length % 2 !== 0 }]}>
         <div class="post-meta">
           <span class="post-topic">{post.topic}</span>
           <span class="post-dot"></span>
@@ -181,7 +193,7 @@ const topics = ['All', 'Subscription economics', 'Sales engineering', 'Business 
           ))}
         </div>
         <span class="post-cta">Read post →</span>
-      </div>
+      </a>
     ))}
   </div>
 
@@ -218,7 +230,6 @@ const topics = ['All', 'Subscription economics', 'Sales engineering', 'Business 
   }
   .page-desc { font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--text-secondary); max-width: 520px; }
 
-  /* Filter bar */
   .filter-bar {
     position: relative; z-index: 1;
     padding: 1.25rem 3rem;
@@ -235,7 +246,6 @@ const topics = ['All', 'Subscription economics', 'Sales engineering', 'Business 
   .filter-btn:hover { color: var(--text-primary); border-color: var(--border-mid); }
   .filter-btn.active { color: var(--accent); border-color: var(--accent-border); background: rgba(200,240,84,0.04); }
 
-  /* Featured post */
   .featured-post {
     position: relative; z-index: 1;
     padding: 4rem 3rem;
@@ -243,6 +253,7 @@ const topics = ['All', 'Subscription economics', 'Sales engineering', 'Business 
     display: grid; grid-template-columns: 1fr 380px;
     gap: 5rem; align-items: start;
     transition: background 0.25s; cursor: pointer;
+    text-decoration: none; color: inherit;
   }
   .featured-post:hover { background: var(--surface); }
   .featured-eyebrow {
@@ -268,10 +279,8 @@ const topics = ['All', 'Subscription economics', 'Sales engineering', 'Business 
   .outline-item:last-child { border-bottom: none; }
   .outline-num { font-family: var(--font-mono); font-size: 0.6rem; color: var(--accent); flex-shrink: 0; }
 
-  /* Posts grid */
   .posts-grid {
     position: relative; z-index: 1;
-    padding: 0;
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 1.5px; background: var(--border);
     border-bottom: 1px solid var(--border);
@@ -281,6 +290,7 @@ const topics = ['All', 'Subscription economics', 'Sales engineering', 'Business 
     background: var(--surface); padding: 2.5rem;
     cursor: pointer; transition: background 0.2s;
     position: relative; overflow: hidden;
+    text-decoration: none; color: inherit;
   }
   .post-card--wide { grid-column: 1 / -1; }
   .post-card::before {
@@ -304,7 +314,6 @@ const topics = ['All', 'Subscription economics', 'Sales engineering', 'Business 
   .post-outline-dash { color: var(--accent); flex-shrink: 0; font-size: 0.7rem; }
   .post-cta { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
 
-  /* Topics footer */
   .topics-footer {
     position: relative; z-index: 1;
     padding: 3rem;
@@ -315,7 +324,6 @@ const topics = ['All', 'Subscription economics', 'Sales engineering', 'Business 
   .topics-desc { font-size: 0.95rem; line-height: 1.8; color: var(--text-secondary); }
   .topics-desc strong { color: var(--text-primary); font-weight: 500; }
 
-  /* Subscribe */
   .subscribe-section {
     position: relative; z-index: 1;
     padding: 5rem 3rem;

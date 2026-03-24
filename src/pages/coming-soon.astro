@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Coming Soon — JWM" activePage="writing">
+  <div class="coming-soon">
+    <p class="eyebrow">In progress</p>
+    <h1 class="title">This one's still in the draft.</h1>
+    <p class="desc">I'm working on it. Check back soon — or get notified when it goes up.</p>
+    <div class="actions">
+      <a href="mailto:jmuhlenberg16@yahoo.com" class="btn-primary">Get notified</a>
+      <a href={`${base}writing`} class="btn-secondary">← Back to writing</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .coming-soon {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem;
+    max-width: 600px;
+  }
+  .title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .desc {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+  }
+  .actions { display: flex; gap: 1.5rem; align-items: center; }
+  .btn-secondary {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+  }
+  .btn-secondary:hover { color: var(--accent); }
+</style>

@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Why subscription commerce is harder than it looks from the outside — JWM" activePage="writing">
+
+  <article class="post">
+
+    <header class="post-header">
+      <div class="post-header__meta">
+        <span class="post-topic">Tech observations</span>
+        <span class="post-dot"></span>
+        <span class="post-length">8 min read</span>
+      </div>
+      <h1 class="post-title">Why subscription commerce is harder than it looks from the outside</h1>
+      <p class="post-subtitle">Everyone has noticed that subscription brands make it easy to sign up and hard to cancel. But the technical and operational complexity underneath a well-run subscription program is genuinely underappreciated.</p>
+    </header>
+
+    <div class="post-body">
+
+      <div class="post-content">
+
+        <section class="post-section">
+          <h2>What "just add a subscribe and save button" actually involves</h2>
+          <p>From the outside, subscription commerce looks like a checkout option. You add a product to your cart, you select "subscribe and save," you get a discount, and a box shows up every month. The brand gets recurring revenue. Everyone wins. How hard could it be?</p>
+          <p>The answer, if you've spent any time inside these systems, is: considerably harder than that framing suggests.</p>
+          <p>The subscribe and save button is the visible tip of an infrastructure stack that has to handle billing schedules, payment method management, dunning logic for failed charges, customer-facing subscription portals, cancellation flows, win-back sequences, cohort analytics, and the ongoing coordination between the subscription platform, the e-commerce platform, and whatever payment processor sits underneath both of them. Each of those layers has failure modes. Each of them requires decisions. Many of those decisions have downstream effects that aren't visible until something breaks.</p>
+          <p>I've worked with brands across the full size spectrum — from mid-market operators running lean teams to enterprise businesses with dedicated technical resources — and the pattern is consistent. The brands that underestimated the complexity early spend a disproportionate amount of time later managing the consequences of decisions they made when they thought the job was simpler than it was.</p>
+        </section>
+
+        <section class="post-section">
+          <h2>The payment infrastructure layer most merchants don't think about until it breaks</h2>
+          <p>Of all the layers in a subscription stack, payment infrastructure is the one that most consistently surprises brands that haven't run subscriptions before. And it's the one where the consequences of getting it wrong are most immediately felt — in revenue, in customer experience, and in operational overhead.</p>
+          <p>The core problem is that recurring billing is fundamentally different from one-time transaction processing. A one-time purchase lives in a moment. A subscription lives across a relationship — one where the payment method can expire, be replaced, be lost, or simply decline on any given cycle. Managing that lifecycle requires dunning logic: a sequence of retry attempts, customer notifications, and escalation paths that determine what happens when a charge fails.</p>
+          <p>Bad dunning is expensive in ways that don't always show up immediately. A retry logic that hits a card too aggressively can trigger fraud flags. One that waits too long loses the customer to passive churn before they've even decided to leave. The window between "card declined" and "subscription cancelled" is where a meaningful percentage of subscription revenue lives — and most brands, when they're first building their programs, haven't thought carefully about how to manage it.</p>
+          <p>The migration dimension adds another layer of complexity. When a brand moves from one subscription platform to another — or from one payment processor to another — they're not just moving software. They're moving tokenized payment credentials that live in a specific vault, tied to a specific processor's infrastructure. A migration from Cybersource to Shopify Payments isn't a data export and import. It's a multi-step process involving token portability, PCI compliance requirements, and an estimated 20-30% card loss rate that the brand needs to plan around before they touch a single record.</p>
+          <p>I've guided brands through this process. The ones who understood the payment layer going in made different decisions — about timing, about customer communication, about what success looked like in the first 90 days post-migration. The ones who didn't often found themselves surprised by problems that were predictable in advance.</p>
+        </section>
+
+        <div class="pull-quote">
+          "The subscribe and save button is the visible tip of an infrastructure stack that has to handle everything that happens between the first charge and the last one. That's most of the job."
+        </div>
+
+        <section class="post-section">
+          <h2>Why migration between subscription platforms is so expensive and risky</h2>
+          <p>Subscription platform migrations have a reputation for being painful, and the reputation is earned. But the pain isn't random — it comes from specific, predictable sources that are worth understanding if you're anywhere near one.</p>
+          <p>The first source is data fidelity. Subscription platforms don't share a common data model. The fields that exist in one platform's subscriber record don't map cleanly onto another's. Billing frequency, next charge date, product variants, discount structures, subscription status — each platform represents these differently, and the translation layer between them requires explicit decisions about what to do when the data doesn't map cleanly. Those decisions, made quickly under migration pressure, often have consequences that surface months later.</p>
+          <p>The second source is customer experience continuity. Your subscribers have a relationship with the portal they use to manage their subscriptions. They know where to go to skip a shipment, update their address, or cancel if they need to. A migration that changes that interface — even if the underlying product is better — creates a re-learning moment for every subscriber. Done well, with clear communication and a thoughtful transition, most subscribers navigate it fine. Done poorly, it generates support tickets, cancellations, and a trust deficit that takes time to rebuild.</p>
+          <p>The third source, and often the most underestimated, is the coordination overhead. A subscription platform migration isn't a technology project — it's a cross-functional project that involves engineering, customer success, marketing, and operations, running simultaneously, with a go-live date that can't slip because existing subscribers are on billing cycles that won't wait. The brands that treat it as a technical lift and underprepare the operational side are the ones that end up in trouble.</p>
+        </section>
+
+        <section class="post-section">
+          <h2>What good subscription infrastructure actually looks like from the inside</h2>
+          <p>After working across enough of these programs, the pattern of what good looks like is fairly clear — even if it's rarely described that way from the outside.</p>
+          <p>Good subscription infrastructure is boring in operation. The billing runs. The dunning catches most of what falls through. The portal works. Customer support tickets about subscription management are a small fraction of total support volume. None of this is exciting to report on, but it's the baseline that everything else depends on. Brands that have achieved this often don't realize how much operational overhead they've eliminated until they talk to brands that haven't.</p>
+          <p>Good subscription infrastructure is also designed for change. Product lines evolve. Pricing changes. Promotional structures get restructured. A well-built subscription stack can accommodate these changes without requiring a migration or a custom development engagement every time. The brands that built their programs on rigid infrastructure spend a disproportionate amount of time working around it — or paying to replace it — every time the business needs to move.</p>
+          <p>And good subscription infrastructure is instrumented. The analytics layer captures what's actually happening at the cohort level, not just in aggregate. Retention rates by acquisition period, AOV by product line, cancellation timing by subscriber segment — these are the signals that tell you whether the business is healthy and where to intervene. A subscription program without this visibility is running partially blind, making decisions on intuition that should be made on data.</p>
+          <p>None of this is unachievable. But it requires taking the infrastructure seriously from the start — treating the subscription layer as a core business system rather than a checkout feature. The brands that do tend to build programs that compound. The ones that don't spend a lot of time catching up.</p>
+        </section>
+
+      </div>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-block">
+          <p class="sidebar-label">About this post</p>
+          <p class="sidebar-text">Drawn from years of pre-sales and solution engineering across subscription brands of every size — from first-time subscription operators to enterprise migrations with hundreds of thousands of active subscribers.</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Filed under</p>
+          <p class="sidebar-tag">Tech observations</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Read time</p>
+          <p class="sidebar-text">8 min</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Related reading</p>
+          <a href={`${base}writing/churn-product-problem`} class="sidebar-link">Churn is a product problem wearing a retention costume →</a>
+          <a href={`${base}writing/aov-vanity`} class="sidebar-link">AOV is a vanity metric until you understand what drives it →</a>
+        </div>
+      </aside>
+
+    </div>
+
+  </article>
+
+  <div class="post-footer">
+    <a href={`${base}writing`} class="post-footer__back">← All writing</a>
+    <a href="mailto:jmuhlenberg16@yahoo.com" class="post-footer__cta">Get notified when new posts go up →</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .post { position: relative; z-index: 1; }
+
+  .post-header {
+    padding: 9rem 3rem 4rem;
+    border-bottom: 1px solid var(--border);
+    max-width: 720px;
+  }
+  .post-header__meta {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .post-topic { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .post-length { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .post-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border-mid); }
+
+  .post-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .post-subtitle {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .post-body {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 5rem;
+    padding: 4rem 3rem;
+    align-items: start;
+  }
+
+  .post-content { display: flex; flex-direction: column; gap: 2.5rem; max-width: 640px; }
+
+  .post-section { display: flex; flex-direction: column; gap: 1rem; }
+  .post-section h2 {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.25rem;
+  }
+  .post-section p {
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+  }
+  .post-section p em { font-style: italic; color: var(--text-primary); }
+
+  .pull-quote {
+    border-left: 2px solid var(--accent);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0.5rem 0;
+  }
+
+  .post-sidebar {
+    position: sticky;
+    top: 7rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+  }
+  .sidebar-block {
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .sidebar-block:last-child { border-bottom: none; }
+  .sidebar-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+  .sidebar-text { font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary); }
+  .sidebar-tag { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .sidebar-link { font-size: 0.78rem; line-height: 1.5; color: var(--text-secondary); transition: color 0.2s; }
+  .sidebar-link:hover { color: var(--accent); }
+
+  .post-footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .post-footer__back,
+  .post-footer__cta {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+  }
+  .post-footer__back:hover,
+  .post-footer__cta:hover { color: var(--accent); }
+</style>
