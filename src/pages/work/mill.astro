@@ -1,0 +1,508 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Mill — JWM" activePage="work">
+
+  <div class="case-block grid-overlay">
+
+    <div class="case-header">
+      <div>
+        <p class="case-eyebrow">Enterprise · Hardware subscription architecture</p>
+        <h1 class="case-title">Closing a deal where the <em>product didn't exist yet</em></h1>
+        <p class="case-summary">Mill makes a smart composting bin. They were leaving Stripe — a platform that wasn't built for hardware rentals — and needed a subscription partner that could handle a product model most platforms had never seen before. I built the architecture, ran the POC, and designed the flows that got them to yes.</p>
+      </div>
+      <div class="case-meta">
+        <div class="meta-item">
+          <p class="meta-label">Segment</p>
+          <p class="meta-value"><strong>Enterprise</strong></p>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <p class="meta-label">Sales cycle</p>
+          <p class="meta-value"><strong>~3.5 months</strong> (Jan → Apr 2026)</p>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <p class="meta-label">My scope</p>
+          <p class="meta-value">Pre-sales · Solution architecture · POC build · Technical advisory</p>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <p class="meta-label">Status</p>
+          <p class="meta-value status-live">Closed — in implementation</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-body">
+      <nav class="case-nav">
+        <span class="case-nav-item">The brief</span>
+        <span class="case-nav-item">The problems</span>
+        <span class="case-nav-item">My approach</span>
+        <span class="case-nav-item">Architecture</span>
+        <span class="case-nav-item">Buyout flow</span>
+        <span class="case-nav-item">Outcomes</span>
+        <span class="case-nav-item">Learnings</span>
+      </nav>
+
+      <div class="case-content">
+
+        <!-- THE BRIEF -->
+        <div class="content-section">
+          <p class="content-label">The brief</p>
+          <p class="prose">Mill makes a home composting bin that turns food scraps into grounds that can be returned to farms. It's a hardware-first business built around a rental model — customers don't buy the bin, they pay monthly to use it, and Mill picks up what it collects.</p>
+          <p class="prose">They'd been running everything on Stripe, but Stripe is a payment processor, not a subscription platform — and the gap was showing. They couldn't offer multiple subscriptions per customer, had no real customer portal, no cancellation prevention, and no scalable way to handle the complexity of their three distinct product lines: the bin rental, consumables (charcoal filters), and waste pickup services.</p>
+          <p class="prose">The decision to move to Shopify + Recharge came with a compressed evaluation window — roughly two weeks to pick a vendor — and a technical team at Mill that wasn't going to rubber-stamp anything. Their backend engineers came in with detailed API questions from the first call and kept going from there.</p>
+        </div>
+
+        <!-- THE PROBLEMS -->
+        <div class="content-section">
+          <p class="content-label">The problems</p>
+
+          <div class="problem-block">
+            <p class="problem-num">01</p>
+            <div>
+              <p class="problem-title">The product model had no precedent in Recharge</p>
+              <p class="prose">Mill's bin rental isn't a subscription in the traditional sense. On day one, you ship a physical bin to a customer. But every month after that, you bill them for a membership — no shipment, no fulfillment, just an ongoing access charge. From Shopify's perspective, that's a problem: if you're selling a physical product on subscription, Shopify will try to call shipping rates on every recurring order. You'd be charging for shipping on a bin that's already sitting in someone's kitchen.</p>
+              <p class="prose">There was also the delayed billing requirement: Mill didn't want to charge customers until after the bin was actually delivered. That's not how Shopify or Recharge works by default.</p>
+            </div>
+          </div>
+
+          <div class="problem-block">
+            <p class="problem-num">02</p>
+            <div>
+              <p class="problem-title">The buyout flow was entirely custom and had no roadmap</p>
+              <p class="prose">Mill offers customers the ability to "buy out" their rental — essentially pay a lump sum to own the bin outright and exit the subscription. The amount varies by how long they've had it. It was manual, partially automated, and the kind of thing where every stakeholder had a slightly different understanding of how it worked. There was no existing Recharge feature for this. We had to design it from scratch.</p>
+            </div>
+          </div>
+
+          <div class="problem-block">
+            <p class="problem-num">03</p>
+            <div>
+              <p class="problem-title">~18,000 subscribers on Stripe with legacy pricing</p>
+              <p class="prose">Mill's subscriber base carried five distinct price points — including legacy prices like $49.99/mo and $300/yr that they were no longer offering to new customers. They also had ~5,700 subscribers on a bundled "Mill + R.City service" product in Stripe that needed to be decomposed into two separate Recharge subscriptions on migration. And they needed all of this to happen without customers having to re-enter their payment information.</p>
+            </div>
+          </div>
+
+          <div class="problem-block">
+            <p class="problem-num">04</p>
+            <div>
+              <p class="problem-title">A technical team doing real due diligence</p>
+              <p class="prose">Mill's backend engineers — Andrew and Azeezat — were not passive observers. They came in with questions about charge vs. order semantics, skip behavior, entitlements endpoint docs (non-public), subscription state management at the API level, Segment event routing, and how cancellation behavior could be controlled programmatically. This wasn't a "can it do bundles?" evaluation. It was close to a technical audit.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- MY APPROACH -->
+        <div class="content-section">
+          <p class="content-label">My approach</p>
+          <p class="prose">The first call set the tone. Mill's PM, Ryan, had a clear mental model of what they needed but was testing whether we actually understood their use case or were just going to pattern-match to something we'd sold before. I made a deliberate choice early: don't oversell, don't paper over complexity, and be the person who names the hard problems before they do.</p>
+          <p class="prose">From the discovery call, I flagged three things that most SEs would've glossed over: that pausing in Recharge is rescheduling, not a true pause state; that Recharge's failed payment recovery system is primarily designed for recurring orders, not one-time charges (which would matter for the buyout); and that the physical-to-digital product swap would require either an Automate flow or a different product architecture. I asked about their accounting team's tolerance for proration edge cases before Ryan brought it up.</p>
+          <p class="prose">Between calls, I built a POC store — not a generic demo, but a configured replica of Mill's actual product catalog with their three subscription types, the rental workflow, cross-sell logic at checkout, and a cancellation prevention flow personalized by subscription spend tier. I scaffolded it fast enough that by the second call (four days later), Ryan could see exactly what their experience would look like in production.</p>
+          <p class="prose">I also made a call that turned out to matter: when Ryan asked about the product architecture for the bin rental, I walked him through three options — an Automate swap flow, a bundle approach, and separate line items — and gave him my honest opinion rather than the option that was easiest to demo. Two separate line items (a $0 fulfillable bin + a recurring digital membership) was the right answer for their ERP, their buyout logic, and their long-term flexibility. It added frontend complexity but removed backend fragility. He told me later that recommendation was part of what made the decision clear.</p>
+        </div>
+
+        <!-- ARCHITECTURE -->
+        <div class="content-section">
+          <p class="content-label">The rental architecture</p>
+          <p class="prose">The core problem: Shopify doesn't know the difference between "ship this bin once" and "keep billing for this bin forever." If you configure a physical product on subscription, it'll try to pull shipping rates on every recurring charge. And if the first charge fires before delivery, you've billed someone for something they don't have yet.</p>
+          <p class="prose">The solution was a two-product architecture. <strong>Product A</strong> is a $0 physical product — it represents the bin shipment. It fulfills once, triggers the 3PL, and then its job is done. <strong>Product B</strong> is a digital membership product, configured in Shopify as non-physical. This is what gets billed every month. No shipping rate calls, no fulfillment triggers, just a clean recurring charge.</p>
+
+          <div class="arch-diagram">
+            <div class="arch-col">
+              <p class="arch-label">Initial checkout</p>
+              <div class="arch-item arch-physical">
+                <span class="arch-tag">one-time</span>
+                <p class="arch-name">$0 Bin Fulfillment</p>
+                <p class="arch-sub">Physical · Ships once → triggers 3PL</p>
+              </div>
+              <div class="arch-item arch-digital">
+                <span class="arch-tag">subscription</span>
+                <p class="arch-name">Bin Membership</p>
+                <p class="arch-sub">Digital · $35/mo or $360/yr</p>
+              </div>
+            </div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-col">
+              <p class="arch-label">Every month after</p>
+              <div class="arch-item arch-digital arch-recurring">
+                <span class="arch-tag arch-tag--green">recurring</span>
+                <p class="arch-name">Bin Membership charge</p>
+                <p class="arch-sub">No shipment · No shipping rates · Clean billing</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="prose">The delayed billing piece worked like this: after the bin ships, the merchant (or a delivery event webhook) makes a PUT call to Recharge's API to update the customer's next charge date to the actual delivery date. From that point forward, the billing anchors to delivery — so a monthly subscriber who received their bin on the 14th gets billed on the 14th of every month. Mill's accounting team wanted exactly this, because it means billing and delivery are always in sync.</p>
+          <p class="prose">I also designed the front-end enforcement pattern for what Mill called "bundling" — which wasn't a Recharge bundle (a single line item) but rather a front-end constraint that forces Product A and Product B to always travel together in the cart. If you remove one, the other removes too. The reference implementation was Eight Sleep's checkout flow, which enforces the same pattern for their mattress + membership pairing.</p>
+
+          <div class="insight-callout">
+            <p class="insight-label">Why separate line items instead of a bundle</p>
+            <p class="insight-body">Recharge bundles apply a single selling plan to the whole bundle — they're either one-time or subscription, not both. And once a bundle is live, you can't natively drop the one-time fulfillment component from future recurring orders without an Automate swap flow. Separate line items give Mill's ERP a cleaner data model, make the buyout logic tractable, and eliminate the automation dependency entirely. It adds a small amount of front-end complexity but removes a meaningful layer of backend fragility.</p>
+          </div>
+        </div>
+
+        <!-- BUYOUT FLOW -->
+        <div class="content-section">
+          <p class="content-label">The buyout flow</p>
+          <p class="prose">Mill offers customers the option to buy out their rental — pay a one-time fee to own the bin and exit the subscription. The price is time-based: customers who've had the bin longer pay less. It's a churn prevention mechanism as much as a product feature.</p>
+          <p class="prose">There's no native Recharge feature for this. I designed it from scratch and documented it in a Lucidchart spanning the full lifecycle — from eligibility determination through payment processing through subscription cancellation.</p>
+
+          <div class="flow-steps">
+            <div class="flow-step">
+              <p class="flow-num">1</p>
+              <div>
+                <p class="flow-title">Eligibility tracking</p>
+                <p class="prose small">After each successful charge (via Recharge's <code>charge.succeeded</code> webhook), Mill's middleware increments a counter on the customer record — tracking both the number of successful bin orders and total spend. These values are written as metafields, either to Recharge's customer object or Shopify's, depending on what tooling needs to read them. I documented the tradeoffs: Recharge metafields are closer to the billing source of truth but require API calls to surface in Shopify-native tools; Shopify metafields are more accessible to CS and marketing tooling but need careful idempotency logic.</p>
+              </div>
+            </div>
+            <div class="flow-step">
+              <p class="flow-num">2</p>
+              <div>
+                <p class="flow-title">Offer presentation</p>
+                <p class="prose small">When a customer reaches the portal and hits cancel, Mill's custom portal reads the metafield and determines eligibility. Eligible customers see a buyout offer with a calculated price. The price tiers are represented as Shopify product variants — not dynamically computed at runtime — which means the portal can use Recharge's JS SDK (which doesn't support custom pricing) rather than requiring server-side middleware to make a raw API call. This was a deliberate simplification: fewer moving parts, lower attack surface.</p>
+              </div>
+            </div>
+            <div class="flow-step">
+              <p class="flow-num">3</p>
+              <div>
+                <p class="flow-title">Payment processing</p>
+                <p class="prose small">The buyout charge is processed as a one-time order through Recharge's API — not through Shopify checkout. The customer doesn't re-enter payment information; the charge fires against their vaulted payment method. One important caveat I flagged: Recharge's failed payment recovery system is designed for recurring subscription orders, not standalone one-time charges. If the buyout payment fails, the recovery system won't retry it. Mill needs to handle that failure state explicitly — surfacing a retry prompt and a payment method update flow in the portal.</p>
+              </div>
+            </div>
+            <div class="flow-step">
+              <p class="flow-num">4</p>
+              <div>
+                <p class="flow-title">Post-payment cleanup</p>
+                <p class="prose small">On successful payment: the bin membership subscription is cancelled via API, a bin recovery process is initiated, and the order is flagged in Netsuite. On failure: the subscription stays active, the failure state is displayed, and a CS ticket is optionally opened. I built out both the happy path and the failure path in the Lucidchart with explicit API calls at each step.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OUTCOMES -->
+        <div class="content-section">
+          <p class="content-label">Outcomes</p>
+          <div class="outcomes-grid">
+            <div class="outcome-item">
+              <p class="outcome-value">Closed</p>
+              <p class="outcome-label">Mill signed with Recharge over Recurly, Prive, and Circuli</p>
+            </div>
+            <div class="outcome-item">
+              <p class="outcome-value">3.5 mo</p>
+              <p class="outcome-label">Full sales cycle from first call to implementation kickoff</p>
+            </div>
+            <div class="outcome-item">
+              <p class="outcome-value">~18K</p>
+              <p class="outcome-label">Subscribers migrating from Stripe with no payment re-entry</p>
+            </div>
+            <div class="outcome-item">
+              <p class="outcome-value">2</p>
+              <p class="outcome-label">Core technical architectures I designed from scratch: rental model + buyout flow</p>
+            </div>
+          </div>
+          <p class="prose">Ryan put it plainly near the end of the evaluation: <em>"I feel pretty confident to speak to the benefits of Recharge... we've definitely at least answered a lot of questions."</em> The April kickoff call with Caitlyn from implementations is where my role formally transitioned — from pre-sales to advisor on record.</p>
+        </div>
+
+        <!-- LEARNINGS -->
+        <div class="content-section">
+          <p class="content-label">What I'd do differently</p>
+          <div class="learnings-list">
+            <div class="learning-item"><strong>Design the failure paths earlier.</strong> I mapped the buyout and rental happy paths in detail. The failure modes — what happens when a buyout charge fails, what happens when a delivery webhook doesn't fire, what happens when a customer has outstanding payments and tries to resubscribe — came up late in the cycle. A more complete failure mode analysis during the POC phase would have given Mill's team more confidence earlier and reduced the back-and-forth in the final weeks.</div>
+            <div class="learning-item"><strong>Surface the Stripe contract timeline as a named risk sooner.</strong> Mill had roughly a year left on their Stripe contract, which meant they'd be running dual payment processors (Stripe + Shopify Payments) for an extended period. The transaction fee differential on Stripe came up late. I should have flagged the "what does your Stripe contract look like?" question in discovery rather than waiting for it to surface organically.</div>
+            <div class="learning-item"><strong>The entitlements conversation should have started earlier.</strong> Recharge's Entitlements Engine ended up being highly relevant to Mill's use case — particularly for validating customer access in their mobile app and governing pickup service eligibility. But it's not publicly documented, so it only entered the conversation when Andrew specifically asked about cancellation behavior. A proactive mention during the architecture conversations would have made that feature land earlier and with more context.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="case-footer">
+    <a href={`${base}work/prn-vision`} class="case-footer__back">← PRN Vision</a>
+    <a href={`${base}work`} class="case-footer__next">All work →</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .case-block { padding: 5rem 3rem; position: relative; z-index: 1; }
+
+  .case-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: start;
+    margin-bottom: 3.5rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .case-eyebrow { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; margin-top: 6rem; }
+  .case-title { font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .case-title em { font-style: italic; color: var(--accent); }
+  .case-summary { font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--text-secondary); max-width: 580px; }
+
+  .case-meta { display: flex; flex-direction: column; gap: 1rem; min-width: 210px; margin-top: 6rem; }
+  .meta-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.2rem; }
+  .meta-value { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+  .meta-value strong { color: var(--text-primary); font-weight: 500; }
+  .meta-divider { width: 100%; height: 1px; background: var(--border); }
+  .status-live { color: var(--accent); font-weight: 500; }
+
+  .case-body { display: grid; grid-template-columns: 200px 1fr; gap: 5rem; align-items: start; }
+
+  .case-nav {
+    position: sticky;
+    top: 7rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    gap: 0.1rem;
+  }
+  .case-nav-item {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.4rem 0.5rem;
+    cursor: default;
+    transition: color 0.15s;
+  }
+  .case-nav-item.active, .case-nav-item:hover { color: var(--accent); }
+
+  .case-content { display: flex; flex-direction: column; gap: 4rem; }
+
+  .content-section { border-top: 1px solid var(--border); padding-top: 2.5rem; }
+  .content-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .prose {
+    font-size: 0.95rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    margin-bottom: 1.2rem;
+    max-width: 680px;
+  }
+  .prose strong { color: var(--text-primary); font-weight: 500; }
+  .prose em { color: var(--text-secondary); font-style: italic; }
+  .prose code {
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    background: rgba(255,255,255,0.06);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  .prose.small { font-size: 0.88rem; }
+
+  /* Problem blocks */
+  .problem-block {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .problem-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .problem-num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    padding-top: 0.25rem;
+  }
+  .problem-title {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  /* Architecture diagram */
+  .arch-diagram {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+  .arch-col { display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+  .arch-label {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+  .arch-item {
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    position: relative;
+  }
+  .arch-item.arch-physical { border-color: rgba(255,255,255,0.15); }
+  .arch-item.arch-digital { border-color: var(--accent); border-opacity: 0.5; }
+  .arch-item.arch-recurring { background: rgba(var(--accent-rgb, 99,255,150), 0.04); }
+  .arch-tag {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .arch-tag--green { color: var(--accent); }
+  .arch-name { font-size: 0.88rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.25rem; }
+  .arch-sub { font-size: 0.75rem; color: var(--text-muted); font-weight: 300; }
+  .arch-arrow { font-size: 1.5rem; color: var(--accent); opacity: 0.5; flex-shrink: 0; }
+
+  /* Insight callout */
+  .insight-callout {
+    border-left: 2px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    background: rgba(255,255,255,0.02);
+  }
+  .insight-label {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .insight-body {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    max-width: 640px;
+    margin: 0;
+  }
+
+  /* Flow steps */
+  .flow-steps { display: flex; flex-direction: column; gap: 0; margin: 1.5rem 0; }
+  .flow-step {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .flow-step:last-child { border-bottom: none; }
+  .flow-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    padding-top: 0.2rem;
+  }
+  .flow-title {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+
+  /* Outcomes */
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .outcome-item {
+    background: var(--bg);
+    padding: 1.5rem;
+  }
+  .outcome-value {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .outcome-label {
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* Learnings */
+  .learnings-list { display: flex; flex-direction: column; gap: 1.25rem; }
+  .learning-item {
+    font-size: 0.92rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--border);
+    max-width: 640px;
+  }
+  .learning-item strong { color: var(--text-primary); font-weight: 500; }
+
+  /* Footer */
+  .case-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem 3rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+  .case-footer__back,
+  .case-footer__next {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .case-footer__back:hover,
+  .case-footer__next:hover { color: var(--accent); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .case-header { grid-template-columns: 1fr; }
+    .case-meta { margin-top: 0; flex-direction: row; flex-wrap: wrap; }
+    .meta-divider { display: none; }
+    .meta-item { min-width: 140px; }
+    .case-body { grid-template-columns: 1fr; gap: 2rem; }
+    .case-nav { position: static; flex-direction: row; flex-wrap: wrap; }
+    .arch-diagram { flex-direction: column; }
+    .arch-arrow { transform: rotate(90deg); }
+    .outcomes-grid { grid-template-columns: 1fr 1fr; }
+    .problem-block { grid-template-columns: 2rem 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .case-block { padding: 3rem 1.5rem; }
+    .outcomes-grid { grid-template-columns: 1fr; }
+    .flow-step { grid-template-columns: 2rem 1fr; }
+  }
+</style>
